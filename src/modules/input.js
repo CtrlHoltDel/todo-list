@@ -1,22 +1,22 @@
-import { DOM } from "./DOM"
+const eventInputs = (function(){
 
-const input = (function(){
+	const newProjectName = function(passthrough){
+		document.getElementById("addProjectButton").addEventListener('click', (e) => {	
+			passthrough(e)
+		})
+	}
 
-	const newProjectInput = document.getElementById("addProjectInput")
-
-	const newProject = function(passthrough){
-		document.getElementById("addProjectButton").addEventListener('click', function(){
-			const inputValue = newProjectInput.value
-			if(inputValue != ""){
-				passthrough(newProjectInput.value)
-				DOM.addProject(newProjectInput.value)
-				newProjectInput.value = ""
+	const globalEventListener = function (type, selector, callback){
+		document.addEventListener(type, function(e){
+			if(e.target.matches(selector)){
+				callback(e)
 			}
 		})
 	}
 	
-	return { newProject }
+
+	return { newProjectName, globalEventListener }
 
 })();
 
-export { input }
+export { eventInputs }

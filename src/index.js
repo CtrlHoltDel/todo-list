@@ -1,4 +1,4 @@
-import './style/style.css'
-import { storedList } from './modules/storage'
+import "./style/style.css"
+import { UI } from "./modules/UI"
 
-storedList
+UI

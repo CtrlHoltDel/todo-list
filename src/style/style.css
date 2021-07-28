@@ -4,7 +4,6 @@
 }
 
 body {
-  background-image: url(../assets/img/bg.png);
   width: 100vw;
   height: 100vh;
   display: -webkit-box;
@@ -67,6 +66,7 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: hidden;
 }
 
 .content #projects #projectsContainer {

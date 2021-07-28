@@ -2,14 +2,20 @@ const DOM = (function(){
 
 	const projectUL = document.getElementById("projectsList")
 
-	const addProject = function(projectName){
-		let newListItem = document.createElement("li")
-		newListItem.innerHTML = projectName
-		console.log(newListItem)
-		projectUL.appendChild(newListItem)
+	const addProjectSingle = function(project, id){
+		const newItem = document.createElement("li");
+		newItem.setAttribute("id", id)
+		newItem.innerHTML = project;
+		projectUL.appendChild(newItem)
 	}
 
-	return { addProject }
+	const renderProjectFull = function(projectArray){
+		projectArray.forEach(project => {
+			addProjectSingle(project.name, project.id);
+		})
+	}
+
+	return { addProjectSingle, renderProjectFull }
 
 })();
 

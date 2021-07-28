@@ -6,7 +6,7 @@
 $primary-colour: #6973af;
 
 body {
-	background-image: url(../assets/img/bg.png);
+	// background-image: url(../assets/img/bg.png);
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -52,6 +52,7 @@ header {
 		display: flex;
 		align-items: center;
 		flex-direction: column;
+		overflow: hidden;
 		#projectsContainer {
 			padding: 5%;
 			width: 80%;
