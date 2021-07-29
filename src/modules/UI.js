@@ -1,6 +1,6 @@
 import { DOM } from "./DOM";
 import { Project } from "./constructors";
-import { newProjectName, projectListEvent } from "./input";
+import { projectListEvent } from "./input";
 
 const UI = (function () {
 	//Setting keys for the storage of the full array and currently selected item.
@@ -31,10 +31,18 @@ const UI = (function () {
 		localStorage.setItem(projectArrayKey, stringifiedJson);
 	};
 
-	//A function that creates a new project with empty tasks and a random ID.
+	//A function that creates a new project with empty tasks and a random ID - adds to dom and array.
 	const newProject = function (projName) {
-		projectArray.push(new Project(projName));
-		DOM.renderProjectList(projectArray);
+		//Creates a new project
+		let newProject = new Project(projName)
+
+		//Pushes the project to the array.
+		projectArray.push(newProject);
+
+		//Adds the new project to the DOM
+		DOM.prependNewProject(newProject);
+
+		//Saves the whole array to local storage.
 		saveProject();
 	};
 
@@ -80,9 +88,9 @@ const UI = (function () {
 
 	if (selectedProject != null) {
 		document.getElementById(selectedProject).classList.add("currentlyselected");
+		DOM.addTitle(getProjectFromId(selectedProject).project_Name)
 	}
 
-	DOM.addTitle(getProjectFromId(selectedProject).project_Name)
 
 })();
 
