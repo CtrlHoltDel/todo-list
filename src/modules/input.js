@@ -1,22 +1,15 @@
-const eventInputs = (function(){
+const newProjectName = function(passthrough){
+	document.getElementById("addProjectButton").addEventListener('click', (e) => {	
+		passthrough(e)
+	})
+}
 
-	const newProjectName = function(passthrough){
-		document.getElementById("addProjectButton").addEventListener('click', (e) => {	
-			passthrough(e)
-		})
-	}
 
-	const globalEventListener = function (type, selector, callback){
-		document.addEventListener(type, function(e){
-			if(e.target.matches(selector)){
-				callback(e)
-			}
-		})
-	}
-	
+const projectListEvent = function(passthrough){
+	document.getElementById("projectsContainer").addEventListener('click', (e) => {
+		passthrough(e)
+	})	
+}
 
-	return { newProjectName, globalEventListener }
 
-})();
-
-export { eventInputs }
+export { newProjectName , projectListEvent }

@@ -3,10 +3,12 @@
 	margin: 0;
 }
 
-$primary-colour: #6973af;
+$primary-colour: #6d6875;
+$secondary-colour: #66818f;
+$bg-colour: #e8e9eb;
 
 body {
-	// background-image: url(../assets/img/bg.png);
+	background-image: url(../assets/img/bg.png);
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -30,7 +32,7 @@ body {
 }
 
 #container {
-	background-color: rgba(0, 0, 0, 0.103);
+	background-color: $bg-colour;
 	border-radius: 20px 20px 20px 20px;
 }
 
@@ -39,20 +41,32 @@ header {
 	height: 10%;
 	background-color: $primary-colour;
 	border-radius: 20px 20px 0px 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	h1{
+		color: white;
+		width: 90%;
+		text-align: right;
+	}
 }
 
 .content {
 	height: 85%;
 	width: 100%;
 	display: flex;
+
+	#projects::-webkit-scrollbar {
+		display: none;
+	  }
+	  
 	#projects {
-		background-color: rgb(141, 141, 165);
 		height: 100%;
 		width: 20%;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		overflow: hidden;
+		overflow: scroll;
 		#projectsContainer {
 			padding: 5%;
 			width: 80%;
@@ -83,6 +97,43 @@ header {
 		background-color: rgb(190, 136, 136);
 		height: 100%;
 		width: 80%;
+	}
+}
+
+#projectsContainer {
+
+	h1{
+		text-align: center;
+		font-size: 2.5em;
+		color: $primary-colour;
+	}
+
+	ul {
+		list-style: none;
+		text-align: right;
+		font-size: 1.2em;
+
+		li {
+			background-color: $secondary-colour;
+			border: 2px solid $secondary-colour;
+			border-radius: 15px;
+			color: white;
+			padding: 5px 20px;
+			margin-top: 10px;
+		}
+
+		li:hover {
+			cursor: pointer;
+			background-color: $bg-colour;
+			color: $secondary-colour;
+		}
+
+		//Currently Selected
+		.currentlyselected {
+			background-color: $bg-colour;
+			color: $secondary-colour;
+		}
+		
 	}
 }
 

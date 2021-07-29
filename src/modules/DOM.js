@@ -1,22 +1,31 @@
-const DOM = (function(){
+const DOM = (function () {
+	const renderProjectList = function (array) {
+		const projectList = document.getElementById("projectsList");
+		projectList.textContent = "";
 
-	const projectUL = document.getElementById("projectsList")
+		array.forEach((project) => {
+			let newList = document.createElement("li");
+			newList.setAttribute("id", project.id);
+			newList.classList.add("projectListLI");
+			newList.innerHTML = project.project_Name;
+			projectList.prepend(newList);
+		});
+	};
 
-	const addProjectSingle = function(project, id){
-		const newItem = document.createElement("li");
-		newItem.setAttribute("id", id)
-		newItem.innerHTML = project;
-		projectUL.appendChild(newItem)
+	const clearProjectListStyle = function () {
+		const allProjects = document.querySelectorAll(".projectListLI");
+
+		allProjects.forEach((project) => {
+			project.classList.remove("currentlyselected");
+		});
+	};
+
+	const addTitle = function(title){
+		let headerOverallTitle = document.getElementById("headerOverallTitle")
+		headerOverallTitle.innerHTML = title
 	}
 
-	const renderProjectFull = function(projectArray){
-		projectArray.forEach(project => {
-			addProjectSingle(project.name, project.id);
-		})
-	}
-
-	return { addProjectSingle, renderProjectFull }
-
+	return { renderProjectList, clearProjectListStyle, addTitle };
 })();
 
 export { DOM }
