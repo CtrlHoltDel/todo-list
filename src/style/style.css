@@ -149,4 +149,12 @@ footer {
   width: 100%;
   background-color: #6d6875;
 }
+
+#taskInputForm {
+  display: none;
+}
+
+.errorForm {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

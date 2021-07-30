@@ -7,11 +7,12 @@ class Project {
 }
 
 class Task {
-	constructor(title, date, description, priority) {
-		(this.title = title),
-			(this.date = date),
-			(this.description = description),
-			(this.priority = priority);
+	constructor(title, dueDate, description) {
+		this.title = title,
+		this.dueDate = dueDate
+		this.description = description,
+		this.id = `${Math.random()}`,
+		this.completed = false
 	}
 }
 

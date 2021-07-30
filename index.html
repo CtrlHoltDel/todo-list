@@ -1,33 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Todo List</title>
-</head>
-<body>
-	<div id="container">
-		<header><h1 id="headerOverallTitle"></h1></header>
-		<div class="content">
-			<div id="projects">
-				<div id="projectsContainer">
-					<h1>Projects</h1>
-					<form class="input">
-						<input type="text" placeholder="New Project" id="addProjectInput"><button id="addProjectButton">+</button>
-					</form>
-					<ul id="projectsList">
-					</ul>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Todo List</title>
+	</head>
+	<body>
+		<div id="container">
+			<header><h1 id="headerOverallTitle"></h1></header>
+			<div class="content">
+				<div id="projects">
+					<div id="projectsContainer">
+						<h1>Projects</h1>
+						<form class="input">
+							<input
+								type="text"
+								placeholder="New Project"
+								id="addProjectInput"
+							/><button id="addProjectButton">+</button>
+						</form>
+						<ul id="projectsList"></ul>
+					</div>
 				</div>
-			</div>
-			<div id="list">
-				<div id="classListContainer">
-					<h1>Placeholder text for list stuff.</h1>
-				</div>
-			</div>
+				<div id="list">
+					<div id="classListContainer"></div>
+					<form id="taskInputForm">
+						<div class="titleHeader">
+							<label for="titleInput">Title</label>
+							<div class="requiredTitle errorForm">
+								Title required
+							</div>
+						</div>
 
+						<input type="text" id="titleInput" />
+
+						<div class="titleHeader">
+							<label for="dueDateInput">Date</label>
+							<div class="requiredDate errorForm">
+								Date required
+							</div>
+						</div>
+
+						<input
+							type="date"
+							id="dueDateInput"
+							name="trip-start"
+						/>
+
+						<div class="titleHeader">
+							<label for="descriptionInput">Description</label>
+							<div class="requiredDescription errorForm">
+								Description required
+							</div>
+						</div>
+
+						<input type="text" id="descriptionInput" />
+
+						<button type="submit" id="submitTaskInputButton">
+							Submit
+						</button>
+					</form>
+				</div>
+			</div>
+			<footer></footer>
 		</div>
-		<footer></footer>
-	</div>
-</body>
+	</body>
 </html>
