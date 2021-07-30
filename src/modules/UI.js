@@ -11,19 +11,18 @@ const UI = (function () {
 	let projectArray = [];
 	let selectedProjectID = localStorage.getItem(projectCurrentKey);
 
-	//A function to load the storage from the array.
-	const loadProject = function () {
-		if (localStorage.getItem(projectArrayKey) != null) {
-			projectArray = JSON.parse(localStorage.getItem(projectArrayKey));
-		}
-	};
 
 	const getProjectFromId = function(id){
 		return projectArray.find(project => project.id == id)
 	}
+	
+	//A function to load the storage from the array.
+	const loadProject = (function () {
+		if (localStorage.getItem(projectArrayKey) != null) {
+			projectArray = JSON.parse(localStorage.getItem(projectArrayKey));
+		}
 
-	//Called straight away.
-	loadProject();
+	})();
 
 	//A function that can be called to stringify and save the project.
 	const saveProject = function () {
@@ -52,44 +51,50 @@ const UI = (function () {
 		DOM.renderAllTasks(project);	
 	}
 
-	//Adds an event listener for the project list window.
-	projectSubmitButton(function (e) {
-		const newProjectNameInput = document.getElementById("addProjectInput");
-		//If it's an item in the list it
-		//Changes the currently selected project variable
-		//Clears the "currently selected" style from all
-		//Adds it to the clicked element
-		//And changes the currently selected variable within the local storage.
-		if (e.target.classList.contains("projectListLI")) {
+	const projects = (function(){
 
-			//Gets the ID of the selected project
-			selectedProjectID = e.target.id;
+		//Adds an event listener for the project list window.
+		projectSubmitButton(function (e) {
+			const newProjectNameInput = document.getElementById("addProjectInput");
+			//If it's an item in the list it
+			//Changes the currently selected project variable
+			//Clears the "currently selected" style from all
+			//Adds it to the clicked element
+			//And changes the currently selected variable within the local storage.
+			if (e.target.classList.contains("projectListLI")) {
 
-			//Adds a title to the header
-			DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
+				//Gets the ID of the selected project
+				selectedProjectID = e.target.id;
 
-			//Removes the style from all the list.
-			DOM.clearProjectListStyle();
-			document.getElementById(e.target.id).classList.add("currentlyselected");
-			localStorage.setItem(projectCurrentKey, e.target.id);
+				//Adds a title to the header
+				DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
 
-			taskListCreate(getProjectFromId(selectedProjectID))
-			
-		}
+				//Removes the style from all the list.
+				DOM.clearProjectListStyle();
+				document.getElementById(e.target.id).classList.add("currentlyselected");
+				localStorage.setItem(projectCurrentKey, e.target.id);
 
-		//If the object clicked is the submit button for the input
-		if (e.target.id === "addProjectButton") {
-			if (newProjectNameInput.value === "") {
-				return;
-			} else {
-				newProject(newProjectNameInput.value);
-				newProjectNameInput.value = "";
+				taskListCreate(getProjectFromId(selectedProjectID))
+				
 			}
-		}
 
-	});
+			//If the object clicked is the submit button for the input
+			if (e.target.id === "addProjectButton") {
+				if (newProjectNameInput.value === "") {
+					return;
+				} else {
+					newProject(newProjectNameInput.value);
+					newProjectNameInput.value = "";
+				}
+			}
 
-	//Event for when the submit button is pressed
+		});
+
+
+	})();
+
+	//Form
+	const forms = (function(){
 	formSubmitButton(function(e){
 
 		DOM.checkForNoTasks()
@@ -120,7 +125,7 @@ const UI = (function () {
 		//Saving the whole project after a new task has been added.
 		saveProject();
 	});
-
+	})();
 
 	//When a task is being hovered over.
 	const tasks = (function(){	
@@ -171,22 +176,25 @@ const UI = (function () {
 	})();
 
 	////Below is what happens on first load.
-	//Rendering the whole current projectArray
-	//If there is already a selected project - adding the classlist to the project
-	//Adding the current title if one is selected.
+	const firstLoad = (function(){
 
-	DOM.renderProjectList(projectArray);
+		DOM.setValuesDateForm();
+		
+		DOM.renderProjectList(projectArray);
 
-	if (selectedProjectID != null) {
-		document.getElementById(selectedProjectID).classList.add("currentlyselected");
-		DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
-		taskListCreate(getProjectFromId(selectedProjectID));
-	}
+		if (selectedProjectID != null) {
+			document.getElementById(selectedProjectID).classList.add("currentlyselected");
+			DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
+			taskListCreate(getProjectFromId(selectedProjectID));
+		}
+	
+	
+		document.getElementById("headerOverallTitle").addEventListener("click", function(){
+			console.log(projectArray)
+		})
 
+	})();
 
-	document.getElementById("headerOverallTitle").addEventListener("click", function(){
-		console.log(projectArray)
-	})
 })();
 
 export { UI };

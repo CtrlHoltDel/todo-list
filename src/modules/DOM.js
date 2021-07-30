@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 
 const DOM = (function () {
 
-	//Project Bar
+	// == Project Bar == //
 
 	const renderProjectList = function (array) {
 		const projectList = document.getElementById("projectsList");
@@ -39,7 +39,7 @@ const DOM = (function () {
 		headerOverallTitle.innerHTML = title;
 	};
 
-	//Tasks
+	// == Tasks == //
 
 	const taskDivContainer = document.getElementById("allTasksContainer");
 
@@ -99,14 +99,13 @@ const DOM = (function () {
 		}
 	};
 
-	//Checks if the first task is the warning and removes it if it is.
 	const checkForNoTasks = function(){
 		if(taskDivContainer.childNodes[0].id === "undefined"){
 			taskDivContainer.innerHTML = ""
 		}
 	}
 
-	//Input form
+	// == Input Form == //
 
 	const titleInput = document.getElementById("titleInput");
 	const dueDateInput = document.getElementById("dueDateInput");
@@ -155,6 +154,18 @@ const DOM = (function () {
 		return false;
 	};
 
+	//Setting value and min to the input.
+	const setValuesDateForm = function(){
+		let thisDate = format(new Date, "yyyy/MM/dd")
+		thisDate = thisDate.replace(/\//g, "-")
+		dueDateInput.value = thisDate
+		dueDateInput.min = thisDate
+		dueDateInput.max = "3000-12-31"
+	}
+
+
+	// == CSS changes == //
+
 	//Changing completed status
 	const changeStatus = function(element){
 		if(element.classList.contains("completed")){
@@ -177,7 +188,8 @@ const DOM = (function () {
 		checkMissingItemsForm,
 		createTask,
 		checkForNoTasks,
-		changeStatus
+		changeStatus,
+		setValuesDateForm
 	};
 
 })();
