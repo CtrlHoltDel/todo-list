@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 const DOM = (function () {
 
 	//Project Bar
@@ -39,7 +41,7 @@ const DOM = (function () {
 
 	//Tasks
 
-	const taskDivContainer = document.getElementById("classListContainer");
+	const taskDivContainer = document.getElementById("allTasksContainer");
 
 	const createTaskListDiv = function () {
 		const taskListInput = document.getElementById("taskInputForm");
@@ -47,8 +49,17 @@ const DOM = (function () {
 	};
 
 	const createTask = function (task) {
+
 		const taskContainer = document.createElement("div");
 		taskContainer.classList.add("taskContainer")
+
+		if(task.completed){
+			taskContainer.classList.add("completed")
+		} else { 
+			taskContainer.classList.remove("completed")	
+		}
+
+		taskContainer.id = task.id
 		const titleTask = document.createElement("div");
 		titleTask.classList.add("titleTaskContainer")
 		const descriptionTask = document.createElement("div");
@@ -88,6 +99,13 @@ const DOM = (function () {
 		}
 	};
 
+	//Checks if the first task is the warning and removes it if it is.
+	const checkForNoTasks = function(){
+		if(taskDivContainer.childNodes[0].id === "undefined"){
+			taskDivContainer.innerHTML = ""
+		}
+	}
+
 	//Input form
 
 	const titleInput = document.getElementById("titleInput");
@@ -113,11 +131,12 @@ const DOM = (function () {
 
 	};
 
-
-
 	//Gets the info from the form and returns it as an array.
 	const getInfoForm = function () {
-		return [titleInput.value, dueDateInput.value, descriptionInput.value];
+		
+		let chosenDate = format(new Date(dueDateInput.value), "dd/MM/yyyy")
+
+		return [titleInput.value, chosenDate, descriptionInput.value];
 	};
 
 	//Resets all the info in the form.
@@ -136,6 +155,15 @@ const DOM = (function () {
 		return false;
 	};
 
+	//Changing completed status
+	const changeStatus = function(element){
+		if(element.classList.contains("completed")){
+			element.classList.remove("completed")
+		} else {
+			element.classList.add("completed")
+		}
+	}
+
 	return {
 		renderProjectList,
 		clearProjectListStyle,
@@ -147,7 +175,16 @@ const DOM = (function () {
 		getInfoForm,
 		resetForm,
 		checkMissingItemsForm,
+		createTask,
+		checkForNoTasks,
+		changeStatus
 	};
+
 })();
 
-export { DOM };
+const DOMTasks = (function(){
+
+
+})();
+
+export { DOM, DOMTasks };

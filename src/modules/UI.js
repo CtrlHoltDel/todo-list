@@ -1,6 +1,6 @@
 import { DOM } from "./DOM";
 import { Project, Task } from "./constructors";
-import { projectSubmitButton, formSubmitButton } from "./input";
+import { projectSubmitButton, formSubmitButton, hoverTaskCheck, hoverTaskOut, timeRemainingProject, taskContainer } from "./input";
 
 const UI = (function () {
 	//Setting keys for the storage of the full array and currently selected item.
@@ -92,6 +92,8 @@ const UI = (function () {
 	//Event for when the submit button is pressed
 	formSubmitButton(function(e){
 
+		DOM.checkForNoTasks()
+
 		//Checks if any of the forms are emperrorFormty and if so displays an error.
 		DOM.formErrorMessage();
 	
@@ -103,10 +105,14 @@ const UI = (function () {
 		//Getting the info from the form.
 		const inputFormInfo = DOM.getInfoForm()
 
-		//Creating a new task and pushing it to the current project.
+		//Creating a new task and pushing it to the current project array and DOM.
 		let currentTask = new Task(inputFormInfo[0], inputFormInfo[1], inputFormInfo[2])
 		let currentProject = getProjectFromId(selectedProjectID)
 		currentProject.tasks.push(currentTask)
+		DOM.createTask(currentTask);
+
+		//Checks if the first task is the error message and if it is, clearing the DOM.
+		DOM.checkForNoTasks();
 
 		//Clears the input form
 		DOM.resetForm();
@@ -114,6 +120,55 @@ const UI = (function () {
 		//Saving the whole project after a new task has been added.
 		saveProject();
 	});
+
+
+	//When a task is being hovered over.
+	const tasks = (function(){	
+		
+		let currentTask
+
+		hoverTaskCheck(function(e){
+			if(e.target.parentNode.classList.contains("taskContainer")){
+				//On hover, finds the ID of the task and finds the specific task.
+				const hoveredItemId =  e.target.parentNode.id
+				currentTask = getProjectFromId(selectedProjectID).tasks.filter(task => task.id === e.target.parentNode.id)
+
+				if(currentTask[0].completed){
+					//If the current task is completed, states completed.
+					e.target.parentNode.children[2].innerHTML = "Completed"
+				} else {
+					//Changes the text contained within the 3rd child of the div to be the time remaining until that project is completed.
+					e.target.parentNode.children[2].innerHTML = timeRemainingProject(currentTask[0].dueDate)
+				}
+			}
+		});
+
+		hoverTaskOut(function(e){
+			//Resets back to the date on hover out.
+			if(e.target.parentNode.classList.contains("taskContainer")){
+				e.target.parentNode.children[2].innerHTML = currentTask[0].dueDate
+			}
+		});
+
+		taskContainer(function(e){
+			if(e.target.parentNode.classList.contains("taskContainer")){
+				//Changing the status of item in the DOM and object to completed/not completed.
+				DOM.changeStatus(e.target.parentNode)
+				if(currentTask[0].completed){
+					e.target.parentNode.children[2].innerHTML = timeRemainingProject(currentTask[0].dueDate)
+					currentTask[0].completed = false
+				} else {
+					e.target.parentNode.children[2].innerHTML = "Completed"
+					currentTask[0].completed = true
+				}
+
+				saveProject();
+			}
+
+			console.log(projectArray)
+		})
+
+	})();
 
 	////Below is what happens on first load.
 	//Rendering the whole current projectArray

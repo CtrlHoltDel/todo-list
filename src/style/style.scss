@@ -130,10 +130,69 @@ footer {
 	background-color: $primary-colour;
 }
 
-#taskInputForm {
+.errorForm {
 	display: none;
 }
 
-.errorForm {
+#list {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+#taskInputForm {
 	display: none;
+	flex-direction: column;
+	justify-content: flex-start;
+	
+	.titleHeader{
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+#allTasksContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 90%;
+	
+	.taskContainer {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		background-color: white;
+		margin-top: 20px;
+		min-height: 3rem;
+
+		.titleTaskContainer{
+			display: flex;
+			align-items: center;
+			width: 10%;
+		}
+
+		.descriptionTaskContainer{
+			display: flex;
+			align-items: center;
+			width: 80%;
+			text-align: left;
+		}
+
+		.dateTaskContainer {
+			display: flex;
+			align-items: center;
+			width: 10%;
+			text-align: left;
+		}
+	}
+
+	.taskContainer:hover {
+		cursor: pointer;
+	}
+
+	.completed * {
+		text-decoration: line-through;
+	}
+
 }

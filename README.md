@@ -2,6 +2,13 @@
 
 Todo list made for the TOP curriculum.
 
+## 30/07/2021
+
+- Added functionality to add tasks to projects.
+- Added functionality that shows amount of time left until a task needs to be completed on hover.
+- Added ability to click when a task has been completed and for the app to retain it.
+- Added class change for onhover/onclick that states a project has been completed.
+
 ## 29/07/2021
 
 - Added SASS.
