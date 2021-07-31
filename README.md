@@ -10,11 +10,7 @@ Todo list made for the TOP curriculum.
 
 - Fixed bug which deleted the whole div as opposed to the specific task div.
 - Fixed bug where variable was being overwritten.
-<<<<<<< HEAD
 - Overhauled the design and made a few small JS tweaks.
-=======
-- Overhauled design.
->>>>>>> 3ca3982105a16f1aec97f839b68c0d33049ff900
 
 ## 30/07/2021
 
