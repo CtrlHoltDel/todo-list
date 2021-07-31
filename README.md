@@ -2,6 +2,11 @@
 
 Todo list made for the TOP curriculum.
 
+## 31/07/2021
+
+- Fixed bug which deleted the whole div as opposed to the specific task div.
+- Fixed bug where variable was being overwritten.
+
 ## 30/07/2021
 
 - Added functionality to add tasks to projects.

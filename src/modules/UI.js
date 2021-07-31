@@ -10,7 +10,7 @@ const UI = (function () {
 	//The array that contains all the information.
 	let projectArray = [];
 	let selectedProjectID = localStorage.getItem(projectCurrentKey);
-
+	console.log(selectedProjectID)
 
 	const getProjectFromId = function(id){
 		return projectArray.find(project => project.id == id)
@@ -77,13 +77,10 @@ const UI = (function () {
 			//Adds it to the clicked element
 			//And changes the currently selected variable within the local storage.
 			
-			let selectedProjectID
 
 			if (e.target.classList.contains("addProjectDiv") || e.target.classList.contains("projectListLI")) {
-
 				//Sets the ID of the selected project
 				if(e.target.classList.contains("addProjectDiv")){
-					console.log(e.target.parentNode.id)
 					selectedProjectID = e.target.parentNode.id
 				} else {
 					selectedProjectID = e.target.id;
@@ -91,11 +88,11 @@ const UI = (function () {
 
 
 				//Adds a title to the header
-				DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
+				DOM.addTitle(getProjectFromId(selectedProjectID))
 
 				//Removes the style from all the list.
 				DOM.clearProjectListStyle();
-				document.getElementById(selectedProjectID).classList.add("currentlyselected");
+				document.getElementById(selectedProjectID).childNodes[1].classList.add("currentlyselected");
 				localStorage.setItem(projectCurrentKey, selectedProjectID);
 
 				taskListCreate(getProjectFromId(selectedProjectID))
@@ -105,6 +102,7 @@ const UI = (function () {
 			if(e.target.classList.contains("deleteProjectDiv")){
 				deleteProject(e.target.parentNode.id);
 				DOM.deleteElement(e.target.parentNode)
+				DOM.addTitle(getProjectFromId(selectedProjectID))
 				return
 			}
 
@@ -128,7 +126,10 @@ const UI = (function () {
 	const forms = (function(){
 		formSubmitButton(function(e){
 
-			DOM.checkForNoTasks()
+			if(getProjectFromId(selectedProjectID) === undefined){
+				console.log("There is no project to add a task to")
+			}
+
 
 			//Checks if any of the forms are emperrorFormty and if so displays an error.
 			DOM.formErrorMessage();
@@ -137,6 +138,8 @@ const UI = (function () {
 			if(DOM.checkMissingItemsForm()){
 				return
 			}
+
+			DOM.checkForNoTasks()
 
 			//Getting the info from the form.
 			const inputFormInfo = DOM.getInfoForm()
@@ -162,38 +165,6 @@ const UI = (function () {
 	const tasks = (function(){	
 		
 		let currentTask
-		//When a task is being clicked.
-		taskContainer(function(e){
-
-			//Deleting the task if the delete key is pressed
-			if(e.target.classList.contains("deleteTaskContainer") || e.target.parentNode.classList.contains("deleteTaskContainer")){
-				
-				let element
-				if(e.target.parentNode.classList.contains("taskContainer")){
-					element = e.target.parentNode
-				} else if (e.target.parentNode.parentNode.classList.contains("taskContainer")) {
-					element = e.target.parentNode.parentNode
-				}
-
-				deleteTask(currentTask[0].id, selectedProjectID);
-				DOM.deleteElement(element)
-			}
-
-			if(e.target.parentNode.classList.contains("taskContainer")){
-				//Changing the status of item in the DOM and object to completed/not completed.
-				DOM.changeStatus(e.target.parentNode)
-				if(currentTask[0].completed){
-					e.target.parentNode.children[1].innerHTML = timeRemainingProject(currentTask[0].dueDate)
-					currentTask[0].completed = false
-				} else {
-					e.target.parentNode.children[1].innerHTML = "Completed"
-					currentTask[0].completed = true
-				}
-
-				saveProject();
-			}
-		
-		})
 
 		// When a task is being hovered over.
 		hoverTaskCheck(function(e){
@@ -201,6 +172,8 @@ const UI = (function () {
 				//On hover, finds the ID of the task and finds the specific task.
 				const hoveredItemId =  e.target.parentNode.id
 				currentTask = getProjectFromId(selectedProjectID).tasks.filter(task => task.id === e.target.parentNode.id)
+
+				console.log(hoveredItemId)
 
 				if(currentTask[0].completed){
 					//If the current task is completed, states completed.
@@ -219,8 +192,45 @@ const UI = (function () {
 			}
 		});
 
+				
+		//When a task is being clicked.
+		taskContainer(function(e){
+
+			//Deleting the task if the delete key is pressed
+			if(e.target.classList.contains("deleteTaskContainer") || e.target.parentNode.classList.contains("deleteTaskContainer")){
+				
+				let element
+				if(e.target.parentNode.classList.contains("taskContainer")){
+					element = e.target.parentNode
+				} else if (e.target.parentNode.parentNode.classList.contains("taskContainer")) {
+					element = e.target.parentNode.parentNode
+				}
 
 
+				deleteTask(currentTask[0].id, selectedProjectID);
+				DOM.deleteElement(element)
+
+				//If after all the elements have been deleted hits 0, reset.
+				if(getProjectFromId(selectedProjectID).tasks.length === 0){
+					taskListCreate(getProjectFromId(selectedProjectID))
+				}
+			}
+
+			if(e.target.parentNode.classList.contains("taskContainer")){
+				//Changing the status of item in the DOM and object to completed/not completed.
+				DOM.changeStatus(e.target.parentNode)
+				if(currentTask[0].completed){
+					e.target.parentNode.children[1].innerHTML = timeRemainingProject(currentTask[0].dueDate)
+					currentTask[0].completed = false
+				} else {
+					e.target.parentNode.children[1].innerHTML = "Completed"
+					currentTask[0].completed = true
+				}
+
+				saveProject();
+			}
+		
+		})
 
 	})();
 
@@ -231,9 +241,10 @@ const UI = (function () {
 		
 		DOM.renderProjectList(projectArray);
 
+		DOM.addTitle(getProjectFromId(selectedProjectID))
+
 		if (selectedProjectID != null && projectArray.length != 0) {
-			document.getElementById(selectedProjectID).classList.add("currentlyselected");
-			DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
+			document.getElementById(selectedProjectID).childNodes[1].classList.add("currentlyselected")
 			taskListCreate(getProjectFromId(selectedProjectID));
 		}
 	
@@ -243,6 +254,7 @@ const UI = (function () {
 		})
 
 	})();
+
 
 })();
 

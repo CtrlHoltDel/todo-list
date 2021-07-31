@@ -33,14 +33,22 @@ const DOM = (function () {
 	const clearProjectListStyle = function () {
 		const allProjects = document.querySelectorAll(".projectListLI");
 
-		allProjects.forEach((project) => {
-			project.classList.remove("currentlyselected");
-		});
+		allProjects.forEach(project => {
+			project.childNodes[1].classList.remove("currentlyselected")
+		})
+
 	};
 
 	const addTitle = function (title) {
+
 		let headerOverallTitle = document.getElementById("headerOverallTitle");
-		headerOverallTitle.innerHTML = title;
+
+		if(title === undefined){
+			headerOverallTitle.innerHTML = "Pick a project!";
+			return
+		}
+
+		headerOverallTitle.innerHTML = title.project_Name;
 	};
 
 	// == Tasks == //
@@ -76,7 +84,7 @@ const DOM = (function () {
 		deleteTask.classList.add("deleteTaskContainer")
 
 		if (task === false) {
-			taskContainer.innerHTML = "No tasks yet";
+			taskContainer.innerHTML = "Pick a project and start adding tasks!";
 			taskDivContainer.appendChild(taskContainer);
 		} else {
 			titleTask.innerHTML = task.title
@@ -150,8 +158,10 @@ const DOM = (function () {
 
 	//Resets all the info in the form.
 	const resetForm = function () {
+		let thisDate = format(new Date, "yyyy/MM/dd")
+		thisDate = thisDate.replace(/\//g, "-")
 		titleInput.value = "";
-		dueDateInput.value = "";
+		dueDateInput.value = thisDate;
 		descriptionInput.value = "";
 	};
 

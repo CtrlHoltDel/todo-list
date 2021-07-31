@@ -20,7 +20,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 	
 		  title: 'Todo List',
-		  template: 'index.html'
+		  template: 'indexTemplate.html'
 	
 		}),
 	

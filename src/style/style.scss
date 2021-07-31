@@ -1,235 +1,288 @@
-* {
-	padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+$primary-colour: #003049;
+$secondary-colour: #669bbc;
+$danger-colour: #c1121f;
+$danger-colour-hover: #780000;
+$cta-colour: #e7d7ad;
+$cta-colour-hover: #72705e;
+$main-font: 'Cabin', sans-serif;
+
+*{
 	margin: 0;
+	padding: 0;
+	font-family: $main-font;
 }
 
-$primary-colour: #6d6875;
-$secondary-colour: #66818f;
-$bg-colour: #e8e9eb;
 
-body {
-	background-image: url(../assets/img/bg.png);
+.container {
 	width: 100vw;
-	height: 100vh;
+}
+
+#taskInputForm{
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
 }
 
-
-#container {
-	background-color: $bg-colour;
-	border-radius: 20px 20px 20px 20px;
-	height: 100%;
+header{
+	
 	width: 100%;
-}
-
-header {
-	width: 100%;
-	height: 10%;
 	background-color: $primary-colour;
+	height: 10vh;
+	color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	h1{
-		color: white;
-		width: 90%;
-		text-align: right;
-	}
-}
 
-.content {
-	height: 88%;
-	width: 100%;
-	display: flex;
-
-	#projects::-webkit-scrollbar {
-		display: none;
-	  }
-	  
-	#projects {
-		height: 100%;
-		width: 20%;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		overflow: scroll;
-		#projectsContainer {
-			padding: 5%;
-			width: 80%;
-		}
-
-		.input {
-			display: flex;
-			justify-content: space-between;
-			input {
-				text-align: right;
-				width: 75%;
-				font-size: 1.5em;
-				height: 1.2em;
-				border: none;
-			}
-			button {
-				border: none;
-				width: 15%;
-				height: 2.1em;
-			}
-
-			button:hover {
-				background-color: red;
-			}
-		}
-	}
-	#list {
-		background-color: rgb(190, 136, 136);
-		height: 100%;
-		width: 80%;
-	}
-}
-
-#projectsContainer {
-
-	h1{
-		text-align: center;
-		font-size: 2.5em;
-		color: $primary-colour;
-	}
-
-	ul {
-		list-style: none;
-		text-align: right;
-		font-size: 1.2em;
-
-		.projectListLI {
-			display: flex;
-			justify-content: space-between;
-			border: 2px solid $secondary-colour;
-			width: 100%;
-			margin-top: 5px;
-			border-radius: 5px;
-			color: white;
-
-			.deleteProjectDiv{
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background-color: rgb(207, 124, 124);
-				width: 10%;
-				border-radius: 4px 0px 0px 4px;
-			}
-
-			.addProjectDiv{
-				background-color: $secondary-colour;
-				width: 90%;
-				border-radius: 0px	4px 4px 0px;
-			}
-
-			.addProjectDiv:hover {
-				background-color: rgba(0, 0, 0, 0);
-			}
-
-		}
-
-		.projectListLI:hover {
-			cursor: pointer;
-			font-size: 2rem;
-			color: rgb(61, 56, 56);
-		}
-
-				//Currently Selected
-				.currentlyselected {
-					font-size: 2rem;
-				}
-
-		
-	}
 }
 
 footer {
-	height: 2%;
 	width: 100%;
+	height: 4vh;
 	background-color: $primary-colour;
+	color: white;
 }
 
-.errorForm {
-	display: none;
-}
-
-#list {
+#undefined {
 	display: flex;
 	align-items: center;
-	flex-direction: column;
-}
-
-#taskInputForm {
-	display: none;
-	flex-direction: column;
-	justify-content: flex-start;
-	
-	.titleHeader{
-		display: flex;
-		justify-content: space-between;
-	}
-}
-
-#allTasksContainer {
-	display: flex;
 	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 90%;
-	
-	.taskContainer {
+}
+
+
+@media (min-width: 900px) {
+	.content {
+		height: 86vh;
 		display: flex;
-		justify-content: space-between;
-		width: 100%;
-		background-color: white;
-		margin-top: 20px;
-		min-height: 3rem;
-		border-radius: 15px 15px 15px 15px;
 
-		.titleTaskContainer{
+		#projects{
+			width: 15%;
+			height: 100%;
 			display: flex;
+			justify-content: space-between;
 			align-items: center;
-			width: 10%;
-			border-radius: 15px 0px 0px 15px;
-		}
+			flex-direction: column;
+			background-color: $secondary-colour;
 
-		.descriptionTaskContainer{
-			display: flex;
-			align-items: center;
-			width: 75%;
-			text-align: left;
-		}
+			#projectsContainer{
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				overflow: hidden;
 
-		.dateTaskContainer {
-			display: flex;
-			align-items: center;
-			width: 10%;
-			text-align: left;
-		}
 
-		.deleteTaskContainer {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 6%;
-			background-color: red;
-			border-radius: 0px 15px 15px 0px;
-			
-			img {
-				height: 25px;
-				width: 25px;
+				h1{
+					width: 100%;
+					color: $primary-colour;
+					font-size: 2.5rem;
+					text-align: center;
+					margin-top: 5px;
+				}
+				form{
+					width: 95%;
+					margin: 10px 0px;
+
+					input {
+						width: 100%;
+						border: none;
+						height: 2rem;
+						font-size: 1.1rem;
+						text-align: center;
+					}
+
+					input:focus{
+						background-color: $primary-colour;
+						color: white;
+					}
+
+					button{
+						margin-top: 5px;
+						width: 100%;
+						background-color: $cta-colour;
+						height: 1.5em;
+						border: none;
+					}
+
+					button:hover{
+						background-color: $cta-colour-hover;
+						cursor: pointer;
+					}
+				}
+
+				#projectsList {
+					width: 100%;
+
+					.projectListLI{
+						height: 2rem;
+						display: flex;
+						justify-content: space-between;
+
+						.deleteProjectDiv{
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 15%;
+							background-color: $danger-colour;
+						}
+
+						.deleteProjectDiv:hover{
+							cursor: pointer;
+							background-color: $danger-colour-hover;
+						}
+
+						.currentlyselected {
+							background-color: $primary-colour;
+							color: white;
+						}
+
+						.addProjectDiv {
+							display: flex;
+							justify-content: flex-end;
+							align-items: center;
+							width: 100%;
+							font-weight: bold;
+						}
+
+						.addProjectDiv:hover{
+							background-color: $primary-colour;
+							cursor: pointer;
+							color: white;
+							font-weight: bold;
+						}
+						
+					}
+				}
 			}
+
+			.taskInputDiv{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				background-color: $primary-colour;
+				border-radius: 0px 25px 0px 0px;
+				width: 100%;
+				height: 35%;
+				color: white;
+				#taskInputForm {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between
+					;
+					
+					width: 80%;
+					height: 85%;
+					.taskHeader{
+						text-align: center;
+						font-size: 2rem;
+					}
+					.titleHeader{
+						display: flex;
+						justify-content: space-between;
+	
+						.errorForm {
+							display: none;
+							color: $danger-colour;
+						}
+					}
+	
+					button{
+						background-color: $cta-colour;
+						color: #2A1E30;
+						margin-top: 5px;
+						border: none;
+						padding: 5px 0px;
+						border-radius: 5px;
+					}
+	
+					button:hover {
+						cursor: pointer;
+						background-color: $cta-colour-hover;
+					}
+				}
+			}
+			
+	
 		}
-	}
 
-	.taskContainer:hover {
-		cursor: pointer;
-	}
+		#list{
+			width: 85%;
+			height: 100%;
+			#allTasksContainer{
+				display: flex;
+				height: 100%;
+				flex-direction: column;
+				align-items: center;
+				.taskContainer{
+					display: flex;
+					width: 98%;
+					margin-top: 10px;
+					height: 2rem;
+					background-color: $secondary-colour;
+					.titleTaskContainer{
+						display: flex;
+						align-items: center;
+						width: 10%;
+						font-weight: bold;
+					}
+					
+					.dateTaskContainer{
+						display: flex;
+						align-items: center;
+						width: 10%;
+					}
 
-	.completed * {
-		text-decoration: line-through;
+					.descriptionTaskContainer{
+						display: flex;
+						align-items: center;
+						width: 78%;
+					}
+
+					.deleteTaskContainer{
+						background-color: $danger-colour;
+						width: 3%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						img{
+							height: 25px;
+							width: 25px;
+						}
+					}
+
+					.deleteTaskContainer:hover{
+						cursor: pointer;
+						background-color: $danger-colour-hover;
+					}
+
+				}
+
+				.taskContainer:hover{
+					cursor: pointer;
+				}
+
+				.completed{
+					color: rgb(65, 62, 62);
+					background-color: rgb(187, 178, 178);
+					text-decoration: line-through;
+
+					.deleteTaskContainer{
+						background-color: #57383a;
+
+					}
+
+				}
+		}
+		}
+
+	}
+}
+
+@media (max-width: 900px){
+	.content {
+		min-height: 86vh;
 	}
 
 }
+
