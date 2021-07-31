@@ -2,10 +2,15 @@
 
 Todo list made for the TOP curriculum.
 
+`Made in HTML, SASS and Javascript - built with Webpack`
+
+[Live Page](https://ctrlholtdel.github.io/todo-list/)
+
 ## 31/07/2021
 
 - Fixed bug which deleted the whole div as opposed to the specific task div.
 - Fixed bug where variable was being overwritten.
+- Overhauled design.
 
 ## 30/07/2021
 
