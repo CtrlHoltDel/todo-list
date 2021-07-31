@@ -124,24 +124,53 @@ header h1 {
   font-size: 1.2em;
 }
 
-#projectsContainer ul li {
-  background-color: #66818f;
+#projectsContainer ul .projectListLI {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   border: 2px solid #66818f;
-  border-radius: 15px;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
   color: white;
-  padding: 5px 20px;
-  margin-top: 10px;
 }
 
-#projectsContainer ul li:hover {
+#projectsContainer ul .projectListLI .deleteProjectDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #cf7c7c;
+  width: 10%;
+  border-radius: 4px 0px 0px 4px;
+}
+
+#projectsContainer ul .projectListLI .addProjectDiv {
+  background-color: #66818f;
+  width: 90%;
+  border-radius: 0px	4px 4px 0px;
+}
+
+#projectsContainer ul .projectListLI .addProjectDiv:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#projectsContainer ul .projectListLI:hover {
   cursor: pointer;
-  background-color: #e8e9eb;
-  color: #66818f;
+  font-size: 2rem;
+  color: #3d3838;
 }
 
 #projectsContainer ul .currentlyselected {
-  background-color: #e8e9eb;
-  color: #66818f;
+  font-size: 2rem;
 }
 
 footer {
@@ -215,6 +244,7 @@ footer {
   background-color: white;
   margin-top: 20px;
   min-height: 3rem;
+  border-radius: 15px 15px 15px 15px;
 }
 
 #allTasksContainer .taskContainer .titleTaskContainer {
@@ -225,6 +255,7 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   width: 10%;
+  border-radius: 15px 0px 0px 15px;
 }
 
 #allTasksContainer .taskContainer .descriptionTaskContainer {
@@ -234,7 +265,7 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 80%;
+  width: 75%;
   text-align: left;
 }
 
@@ -247,6 +278,26 @@ footer {
           align-items: center;
   width: 10%;
   text-align: left;
+}
+
+#allTasksContainer .taskContainer .deleteTaskContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 6%;
+  background-color: red;
+  border-radius: 0px 15px 15px 0px;
+}
+
+#allTasksContainer .taskContainer .deleteTaskContainer img {
+  height: 25px;
+  width: 25px;
 }
 
 #allTasksContainer .taskContainer:hover {

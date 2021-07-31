@@ -1,29 +1,33 @@
 import { format } from 'date-fns'
+import deleteIcon from '../assets/img/delete.png'
 
 const DOM = (function () {
 
 	// == Project Bar == //
 
 	const renderProjectList = function (array) {
-		const projectList = document.getElementById("projectsList");
-
 		array.forEach((project) => {
-			const newList = document.createElement("li");
-			newList.setAttribute("id", project.id);
-			newList.classList.add("projectListLI");
-			newList.innerHTML = project.project_Name;
-			projectList.prepend(newList);
+			prependNewProject(project)
 		});
 	};
 
 	const prependNewProject = function (project) {
 		const projectList = document.getElementById("projectsList");
+		const projectListDiv = document.createElement("div")
+		const deleteProjectDiv = document.createElement("div")
+		const newProject = document.createElement("div");
+		
+		projectListDiv.classList.add("projectListLI");
+		deleteProjectDiv.classList.add("deleteProjectDiv");
+		newProject.classList.add("addProjectDiv")
+		projectListDiv.setAttribute("id", project.id);
 
-		let newList = document.createElement("li");
-		newList.setAttribute("id", project.id);
-		newList.classList.add("projectListLI");
-		newList.innerHTML = project.project_Name;
-		projectList.prepend(newList);
+		deleteProjectDiv.innerHTML = "x"
+		newProject.innerHTML = project.project_Name;;
+
+		projectList.prepend(projectListDiv);
+		projectListDiv.append(deleteProjectDiv);
+		projectListDiv.append(newProject)
 	};
 
 	const clearProjectListStyle = function () {
@@ -48,15 +52,17 @@ const DOM = (function () {
 		taskListInput.style.display = "flex";
 	};
 
+	//Building the task.
 	const createTask = function (task) {
+		const deleteSVG = new Image();
+		deleteSVG.src = deleteIcon
 
 		const taskContainer = document.createElement("div");
 		taskContainer.classList.add("taskContainer")
-
+		
+		//If the task is completed, add completed as a style.
 		if(task.completed){
 			taskContainer.classList.add("completed")
-		} else { 
-			taskContainer.classList.remove("completed")	
 		}
 
 		taskContainer.id = task.id
@@ -66,18 +72,22 @@ const DOM = (function () {
 		descriptionTask.classList.add("descriptionTaskContainer")
 		const dateTask = document.createElement("div");
 		dateTask.classList.add("dateTaskContainer")
+		const deleteTask = document.createElement("div");
+		deleteTask.classList.add("deleteTaskContainer")
 
 		if (task === false) {
 			taskContainer.innerHTML = "No tasks yet";
 			taskDivContainer.appendChild(taskContainer);
 		} else {
+			titleTask.innerHTML = task.title
+			descriptionTask.innerHTML = task.description
+			dateTask.innerHTML = task.dueDate
+			deleteTask.appendChild(deleteSVG)
 			taskDivContainer.appendChild(taskContainer);
 			taskContainer.appendChild(titleTask)
-			titleTask.innerHTML = task.title
-			taskContainer.appendChild(descriptionTask)
-			descriptionTask.innerHTML = task.description
 			taskContainer.appendChild(dateTask)
-			dateTask.innerHTML = task.dueDate
+			taskContainer.appendChild(descriptionTask)
+			taskContainer.appendChild(deleteTask)
 		}
 	};
 
@@ -175,6 +185,12 @@ const DOM = (function () {
 		}
 	}
 
+	// == Misc == //
+
+	const deleteElement = function(element){
+		element.remove();
+	}
+
 	return {
 		renderProjectList,
 		clearProjectListStyle,
@@ -189,7 +205,8 @@ const DOM = (function () {
 		createTask,
 		checkForNoTasks,
 		changeStatus,
-		setValuesDateForm
+		setValuesDateForm,
+		deleteElement
 	};
 
 })();

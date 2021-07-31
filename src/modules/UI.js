@@ -61,7 +61,9 @@ const UI = (function () {
 
 
 	const deleteProject = function(projectID){
-
+		let projectIndex = projectArray.findIndex(project => project.id == projectID)
+		projectArray.splice(projectIndex,1)
+		saveProject();
 	}
 
 	const projects = (function(){
@@ -74,11 +76,10 @@ const UI = (function () {
 			//Clears the "currently selected" style from all
 			//Adds it to the clicked element
 			//And changes the currently selected variable within the local storage.
-
+			
+			let selectedProjectID
 
 			if (e.target.classList.contains("addProjectDiv") || e.target.classList.contains("projectListLI")) {
-
-				let selectedProjectID
 
 				//Sets the ID of the selected project
 				if(e.target.classList.contains("addProjectDiv")){
@@ -100,6 +101,13 @@ const UI = (function () {
 				taskListCreate(getProjectFromId(selectedProjectID))
 				
 			}
+
+			if(e.target.classList.contains("deleteProjectDiv")){
+				deleteProject(e.target.parentNode.id);
+				DOM.deleteElement(e.target.parentNode)
+				return
+			}
+
 
 			//If the object clicked is the submit button for the input
 			if (e.target.id === "addProjectButton") {
@@ -223,7 +231,7 @@ const UI = (function () {
 		
 		DOM.renderProjectList(projectArray);
 
-		if (selectedProjectID != null) {
+		if (selectedProjectID != null && projectArray.length != 0) {
 			document.getElementById(selectedProjectID).classList.add("currentlyselected");
 			DOM.addTitle(getProjectFromId(selectedProjectID).project_Name)
 			taskListCreate(getProjectFromId(selectedProjectID));
