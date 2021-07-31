@@ -3,7 +3,7 @@ import deleteIcon from '../assets/img/delete.png'
 
 const DOM = (function () {
 
-	// == Project Bar == //
+	// == Projects == //
 
 	const renderProjectList = function (array) {
 		array.forEach((project) => {
@@ -60,7 +60,6 @@ const DOM = (function () {
 		taskListInput.style.display = "flex";
 	};
 
-	//Building the task.
 	const createTask = function (task) {
 		const deleteSVG = new Image();
 		deleteSVG.src = deleteIcon
@@ -68,7 +67,6 @@ const DOM = (function () {
 		const taskContainer = document.createElement("div");
 		taskContainer.classList.add("taskContainer")
 		
-		//If the task is completed, add completed as a style.
 		if(task.completed){
 			taskContainer.classList.add("completed")
 		}
@@ -100,18 +98,16 @@ const DOM = (function () {
 	};
 
 	const renderAllTasks = function (project) {
-		//Checks if there's any tasks in the project
-		//If there's no tasks in the current project - adds a div that has a warning about the lack of tasks.
+
 		if (project.tasks.length === 0) {
-			//Empties the div
-			//Checks if there's already an error message, if there is - doesn't make a new one.
+
 			taskDivContainer.innerHTML = ""
 			if(taskDivContainer.childNodes.length >= 1){
 				return
 			}
 			createTask(false);
 		} else {
-			//Emptys the div
+
 			taskDivContainer.innerHTML = ""
 			project.tasks.forEach(task => createTask(task))
 		}
@@ -129,7 +125,6 @@ const DOM = (function () {
 	const dueDateInput = document.getElementById("dueDateInput");
 	const descriptionInput = document.getElementById("descriptionInput");
 
-	//Checks wether an input variable is empty and shows an error if it is, if the input is clicked the error is removed.
 	const formErrorMessage = function () {
 
 		let array = [[titleInput, "Title"], [dueDateInput, "Date"], [descriptionInput, "Description"]]
@@ -148,7 +143,6 @@ const DOM = (function () {
 
 	};
 
-	//Gets the info from the form and returns it as an array.
 	const getInfoForm = function () {
 		
 		let chosenDate = format(new Date(dueDateInput.value), "dd/MM/yyyy")
@@ -156,7 +150,6 @@ const DOM = (function () {
 		return [titleInput.value, chosenDate, descriptionInput.value];
 	};
 
-	//Resets all the info in the form.
 	const resetForm = function () {
 		let thisDate = format(new Date, "yyyy/MM/dd")
 		thisDate = thisDate.replace(/\//g, "-")
@@ -165,7 +158,6 @@ const DOM = (function () {
 		descriptionInput.value = "";
 	};
 
-	//Checks if there's any missing items in the form and returns true if there is.
 	const checkMissingItemsForm = function () {
 		if (titleInput.value === "" ||descriptionInput.value === "" ||	dueDateInput.value === "") {
 			return true;
@@ -174,7 +166,6 @@ const DOM = (function () {
 		return false;
 	};
 
-	//Setting value and min to the input.
 	const setValuesDateForm = function(){
 		let thisDate = format(new Date, "yyyy/MM/dd")
 		thisDate = thisDate.replace(/\//g, "-")
@@ -186,7 +177,6 @@ const DOM = (function () {
 
 	// == CSS changes == //
 
-	//Changing completed status
 	const changeStatus = function(element){
 		if(element.classList.contains("completed")){
 			element.classList.remove("completed")
@@ -221,9 +211,4 @@ const DOM = (function () {
 
 })();
 
-const DOMTasks = (function(){
-
-
-})();
-
-export { DOM, DOMTasks };
+export { DOM };
