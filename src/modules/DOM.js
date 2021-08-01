@@ -25,7 +25,7 @@ const TaskDOM = (function () {
 		deleteButton.innerHTML = "X";
         editButton.innerHTML = "Edit";
 
-		taskListDOM.prepend(createdDiv);
+		taskListDOM.append(createdDiv);
 		createdDiv.appendChild(title);
 		createdDiv.appendChild(date);
 		createdDiv.appendChild(note);
@@ -42,12 +42,34 @@ const TaskDOM = (function () {
 		taskArray.forEach((task) => createTaskDiv(task));
 	};
 
-	const loadAllTasks = function(taskArray){
+	const renderAllTasks = function(taskArray, projectArray){
+		deleteAllTasks();
+		projectArray.forEach(project => {
+			const headerDiv = document.createElement("h1")
+			headerDiv.innerHTML = project
+			taskListDOM.appendChild(headerDiv)
 
+			let filteredArray = taskArray.filter(task => task.project === project)
+
+			if(filteredArray != 0){
+				filteredArray.forEach(task => {
+					createTaskDiv(task)
+				})
+				return
+			}
+
+			let noTasksDiv = document.createElement("div")
+			noTasksDiv.classList.add("noTasks")
+			noTasksDiv.innerHTML = "No tasks"
+			taskListDOM.appendChild(noTasksDiv)
+
+		})
 	}
 
-	return { renderTaskList, createTaskDiv, loadAllTasks };
 	
+
+	return { renderTaskList, createTaskDiv, renderAllTasks };
+
 })();
 
 const ProjectsDOM = (function () {
@@ -80,6 +102,10 @@ const ProjectsDOM = (function () {
 
     const addCurrentlySelectedStyle = function(selectedID){
 		removeCurrentlySelectedStyle();
+		if(selectedID === "allProjects"){
+			console.log("ALL PROJECTS")
+			return
+		}
         const selectedNode = document.getElementById(selectedID).childNodes[0]
         selectedNode.classList.add("currentlySelectedProject")
     }

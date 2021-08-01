@@ -1,3 +1,5 @@
+import { format, isBefore } from 'date-fns'
+
 const Inputs = (function () {
 	//Inputs
 	const projectInput = document.querySelector("[data-project-input]");
@@ -8,6 +10,9 @@ const Inputs = (function () {
 	//Buttons
 	const projectSubmitButton = document.querySelector(".projectSubmit");
 	const inputSubmitButton = document.querySelector(".taskSubmit");
+	const allTasksButton = document.getElementById("loadAllTasks")
+	const thisWeekButton = document.getElementById("loadThisWeek")
+	const thisMonthButton = document.getElementById("loadThisMonth")
 
 	//Misc elements
 	const tasksDiv = document.getElementById("tasks");
@@ -46,6 +51,24 @@ const Inputs = (function () {
 
 	// -- Tasks -- //
 
+	const loadAllTasks = function(passthrough) {
+		allTasksButton.addEventListener("click", function(e) {
+			passthrough(e)
+		})
+	}
+
+	const loadThisWeek = function(passthrough) {
+		thisWeekButton.addEventListener("click", function(e) {
+			passthrough(e)
+		})
+	}
+
+	const loadThisMonth = function(passthrough) {
+		thisMonthButton.addEventListener("click", function(e) {
+			passthrough(e)
+		})
+	}
+
 	const taskSubmit = function (passthrough) {
 		inputSubmitButton.addEventListener("click", function (e) {
 			e.preventDefault();
@@ -61,37 +84,51 @@ const Inputs = (function () {
 
 	const getTaskInputs = function () {
 
-    let checkInputs = 0
+		let checkInputs = 0
+		
+		if(titleInput.value === ""){
+			checkInputs++
+		}
 
-    if(titleInput.value === ""){
-      console.log("empty title")
-      checkInputs++
-    }
+		if(dateInput.value === ""){
+			checkInputs++
+		}
 
-    if(dateInput.value === ""){
-      console.log("empty date")
-      checkInputs++
-    }
+		if(noteInput.value === ""){
+			checkInputs++
+			return null
+		}
 
-    if(noteInput.value === ""){
-      console.log("empty note")
-      checkInputs++
-    }
+		//Check to make sure the input date is after the current date.
 
-    if(checkInputs > 0){
-      return null
-    }
+		console.log(dateInput.value)
 
-    checkInputs = 0
-    const taskInputsArray = [ titleInput.value, dateInput.value, noteInput.value ]
+		const splitInputDate = (dateInput.value.split("-"))
+		const splitTodaysDate = (format(new Date(), "dd-MM-yyyy")).split("-")
+		const inputDate = format(new Date(splitInputDate[0], splitInputDate[1]-1, splitInputDate[2]), "dd-MM-yyyy")
+		splitTodaysDate[1] -= 1
+		splitInputDate[1] -= 1
 
-    titleInput.value = ""
-    dateInput.value = ""
-    noteInput.value = ""
+		let isBeforeDate = isBefore(new Date(splitInputDate[0],splitInputDate[1],splitInputDate[2]), new Date(splitTodaysDate[2],splitTodaysDate[1],splitTodaysDate[0]))
 
-    return taskInputsArray
+		if(isBeforeDate){
+			console.log("the date is before");
+			return null
+		}
+		
+		if(checkInputs > 0){
+			return null
+		}
 
-  };
+		const taskInputsArray = [ titleInput.value, inputDate, noteInput.value ]
+
+		titleInput.value = ""
+		dateInput.value = ""
+		noteInput.value = ""
+
+		return taskInputsArray
+
+ 	};
 
 	return {
 		projectSubmit,
@@ -100,6 +137,9 @@ const Inputs = (function () {
 		taskMouseover,
 		taskSubmit,
 		getTaskInputs,
+		loadAllTasks,
+		loadThisWeek,
+		loadThisMonth
 	};
 
 })();

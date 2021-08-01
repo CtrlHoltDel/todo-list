@@ -38,6 +38,13 @@
   background-color: #b43333;
 }
 
+.noTasks {
+  background-color: rgba(0, 0, 0, 0.226);
+  padding: 20px 0px;
+  width: 100%;
+  text-align: center;
+}
+
 .taskHoverDiv {
   background-color: rgba(0, 0, 0, 0.226);
   padding: 20px 0px;

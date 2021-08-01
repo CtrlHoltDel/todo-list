@@ -1,7 +1,7 @@
 import { Storage } from "./storage";
 import { Inputs } from "./inputs";
-import { TaskDOM, ProjectsDOM, EditingDOM } from "./DOM";
-import { filterTaskList } from "./misc";
+import { TaskDOM, ProjectsDOM } from "./DOM";
+import { filterTaskList, filterByDate } from "./misc";
 
 class Task {
     constructor(title, date, note, project){
@@ -98,6 +98,22 @@ const UI = (function () {
 		}
 	});
 
+    Inputs.loadAllTasks(function (e){
+        TaskDOM.renderAllTasks(tasksArray, projectsArray);
+        currentlySelectedProject = "filtered"
+    })
+
+    Inputs.loadThisWeek(function(e){
+        const filteredArray = filterByDate(tasksArray, "week");
+        TaskDOM.renderAllTasks(filteredArray, projectsArray);
+        currentlySelectedProject = "filtered"
+    })
+
+    Inputs.loadThisMonth(function(e){
+        const filteredArray = filterByDate(tasksArray, "month")
+        TaskDOM.renderAllTasks(filteredArray, projectsArray);
+        currentlySelectedProject = "filtered"
+    })
 
 	// -- On first Load -- //
 
@@ -105,6 +121,15 @@ const UI = (function () {
     ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
     const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
     TaskDOM.renderTaskList(filteredArray);
+
+    if (currentlySelectedProject === "allProjects"){
+        TaskDOM.renderAllTasks(tasksArray, projectsArray);
+    }
+
+    if (tasksArray.length === 0){
+        console.log("Explain new stuff!")
+    }
+    
 
 })();
 

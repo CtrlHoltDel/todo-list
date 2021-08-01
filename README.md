@@ -2,13 +2,14 @@
 
 Todo list made for the TOP curriculum.
 
-`Made in HTML, SASS and Javascript - built with Webpack`
-
-[Live Page](https://ctrlholtdel.github.io/todo-list/)
+`Made in HTML, SASS and Javascript - compiled with Webpack`
 
 ## 32/07/2021
 
 - Started V2 todo-list
+- Added ability to add both tasks and projects.
+- Added feature that allows the browser to remember the task you had selected in the previous session and load those tasks accordingly.
+- Added some date-fns functions to check the current date/to make sure an input task isn't before the current date.
 
 ## 31/07/2021
 
