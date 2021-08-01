@@ -24,11 +24,58 @@
   
   #inputs {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     height:10vh;
     background-color: rgb(180, 51, 51);
   }
   
-  
+  .taskHoverDiv {
+    background-color: rgba(0, 0, 0, 0.226);
+    padding: 20px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .taskHoverDiv:hover {
+    background-color: rgba(0, 0, 0, 0.062);
+  }
+
+  .projectNameStyle {
+    width: 90%;
+    height: 3rem;
+    padding: 0px 5%;
+    display: flex;
+  }
+
+  .projectNameButton {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+  }
+
+  .projectNameButton:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.308);   
+  }
+
+  .projectDeleteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+  }
+
+  .currentlySelectedProject {
+    background-color: orange;
+    color: purple;
+  }
+
+  .currentlySelectedProject:hover {
+    cursor: pointer;
+    background-color: orange;
+  }

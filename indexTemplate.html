@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
- <meta charset="utf-8" lang="en">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <div id="projects"></div>
-    <div id="tasks"></div>
-  </div>
-  <div id="inputs"><form action=""><input type="text" placeholder="Project" data-project-input>
-  <button type="submit" class="projectSubmit">button</button></form></div>
-</body>
+	<head>
+		<meta charset="utf-8" lang="en" />
+	</head>
+	<body>
+		<div class="container">
+			<div id="projects" class="projectsSetDiv"></div>
+			<div id="tasks"></div>
+		</div>
+		<div id="inputs">
+			<form action="">
+				<input type="text" placeholder="Project" data-project-input />
+				<button type="submit" class="projectSubmit">button</button>
+			</form>
+      <form action="">
+        <label for="titleInput">Title</label>
+        <input type="text" id="titleInput">
+        <label for="dateInput">Date</label>
+        <input type="date" id="dateInput">
+        <label for="noteInput">Note</label>
+        <input type="text" id="noteInput">
+        <button class="taskSubmit">Submit</button>
+      </form>
+      <button id="loadAllTasks">All Tasks</button>
+		</div>
+	</body>
 </html>
