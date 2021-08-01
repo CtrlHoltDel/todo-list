@@ -6,6 +6,10 @@ Todo list made for the TOP curriculum.
 
 [Live Page](https://ctrlholtdel.github.io/todo-list/)
 
+## 32/07/2021
+
+- Started V2 todo-list
+
 ## 31/07/2021
 
 - Fixed bug which deleted the whole div as opposed to the specific task div.

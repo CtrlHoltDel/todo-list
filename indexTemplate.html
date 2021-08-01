@@ -1,87 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Todo List</title>
-	</head>
-	<body>
-		<div id="container">
-			<header><h1 id="headerOverallTitle"></h1></header>
-			<div class="content">
-				<div id="projects">
-					<div id="projectsContainer">
-						<h1>Projects</h1>
-						<form class="input">
-							<input
-								type="text"
-								placeholder="New Project"
-								id="addProjectInput"
-							/><button id="addProjectButton">+</button>
-						</form>
-						<ul id="projectsList"></ul>
-					</div>
-					<div class="taskInputDiv">
-						<form id="taskInputForm">
-							<div class="taskHeader">Add Task</div>
-							<div class="titleHeader">
-								<label for="titleInput">Title</label>
-								<div class="requiredTitle errorForm">
-									Required
-								</div>
-							</div>
-
-							<input
-								class="inputsTypes"
-								type="text"
-								id="titleInput"
-							/>
-
-							<div class="titleHeader">
-								<label for="dueDateInput">Date</label>
-								<div class="requiredDate errorForm">
-									Required
-								</div>
-							</div>
-
-							<input
-								class="inputsTypes"
-								type="date"
-								id="dueDateInput"
-								name="trip-start"
-							/>
-
-							<div class="titleHeader">
-								<label for="descriptionInput"
-									>Description</label
-								>
-								<div class="requiredDescription errorForm">
-									Required
-								</div>
-							</div>
-
-							<input
-								type="text"
-								id="descriptionInput"
-								class="inputsTypes"
-							/>
-
-							<button
-								type="submit"
-								id="submitTaskInputButton"
-								class="inputsTypes"
-							>
-								Submit
-							</button>
-						</form>
-					</div>
-				</div>
-				<div id="list">
-					<div id="allTasksContainer"></div>
-				</div>
-			</div>
-			<footer></footer>
-		</div>
-	</body>
+<html>
+<head>
+ <meta charset="utf-8" lang="en">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="projects"></div>
+    <div id="tasks"></div>
+  </div>
+  <div id="inputs"><form action=""><input type="text" placeholder="Project" data-project-input>
+  <button type="submit" class="projectSubmit">button</button></form></div>
+</body>
 </html>
