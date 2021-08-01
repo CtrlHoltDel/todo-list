@@ -38,17 +38,74 @@
     text-align: center;
   }
   
+  .projectDeleteButton {
+    background-color: rgb(141, 99, 99);
+  }
+
+  .projectDeleteButton:hover {
+    cursor: pointer;
+    background-color: rgb(116, 60, 60);
+  }
+
   .taskHoverDiv {
     background-color: rgba(0, 0, 0, 0.226);
-    padding: 20px 0px;
+    height: 6%;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    .taskHoverTitle{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15%;
+      height: 100%;
+      text-align: center;
+    }
+    .taskHoverDate{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 10%;
+      height: 100%;
+    }
+    .taskHoverNote{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 65%;
+      height: 100%;
+    }
+
+    .taskHoverDelete{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 5%;
+      height: 100%;
+      background-color: rgb(150, 100, 100);
+    }
+
+    .taskHoverDelete:hover {
+      cursor: pointer;
+      background-color: rgb(121, 71, 71);
+
+    }
+
+    .taskHoverEdit{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 5%;
+      height: 100%;
+      background-color: rgb(120, 120, 201);
+    }
+
+    .taskHoverEdit:hover{
+      cursor: pointer;
+      background-color: rgb(153, 153, 221);  
+    }
   }
 
-  .taskHoverDiv:hover {
-    background-color: rgba(0, 0, 0, 0.062);
-  }
 
   .projectNameStyle {
     width: 90%;

@@ -35,4 +35,13 @@ const filterByDate = function(array, date){
 
 }
 
-export { filterTaskList, filterByDate}
+const indexOfTask = function(array, id){
+
+    let index = array.findIndex(task => {
+        return task.id == id
+    })
+
+    return index
+}
+
+export { filterTaskList, filterByDate, indexOfTask}

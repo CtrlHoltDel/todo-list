@@ -106,6 +106,7 @@ const ProjectsDOM = (function () {
 			console.log("ALL PROJECTS")
 			return
 		}
+
         const selectedNode = document.getElementById(selectedID).childNodes[0]
         selectedNode.classList.add("currentlySelectedProject")
     }

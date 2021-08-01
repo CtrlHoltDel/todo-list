@@ -1,7 +1,7 @@
 import { Storage } from "./storage";
 import { Inputs } from "./inputs";
 import { TaskDOM, ProjectsDOM } from "./DOM";
-import { filterTaskList, filterByDate } from "./misc";
+import { filterTaskList, filterByDate, indexOfTask } from "./misc";
 
 class Task {
     constructor(title, date, note, project){
@@ -21,6 +21,17 @@ const UI = (function () {
 	let tasksArray = [];
 	let projectsArray = ["misc"];
     let currentlySelectedProject = "misc"
+
+    // -- Variable functions -- //
+
+    const deleteTask = function(index){
+        tasksArray.splice(index, 1);
+    }
+
+    const resetAndCreateTasks = function(){
+        const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
+        TaskDOM.renderTaskList(filteredArray);
+    }
 
 	// -- Loading from Local Storage -- //
 
@@ -72,6 +83,40 @@ const UI = (function () {
         TaskDOM.renderTaskList(filteredArray);
 
     })
+
+    Inputs.projectDelete(function(e){
+        
+        const selectedProject = e.target.parentNode.id
+        console.log(e.target.parentNode.id)
+
+        if(e.target.parentNode.id === currentlySelectedProject){
+            currentlySelectedProject = "misc"
+            ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
+            resetAndCreateTasks();
+        }
+
+        if(selectedProject === "misc"){
+            console.warn("You can't delete misc")
+            return
+        }
+
+        const indexOfProject = projectsArray.indexOf(selectedProject)
+        projectsArray.splice(indexOfProject, 1)
+        e.target.parentNode.remove();
+
+        let idOfTasksWithProject = []
+
+        tasksArray.forEach(task => {
+            if(task.project === selectedProject){
+                idOfTasksWithProject.push(task.id)
+            }
+        })
+
+        idOfTasksWithProject.forEach(id => deleteTask(id))
+
+        Storage.saveAll(projectsArray, tasksArray);
+        
+    })
     
     Inputs.taskSubmit(function (e){
 
@@ -85,6 +130,28 @@ const UI = (function () {
         TaskDOM.createTaskDiv(addedTask)
         tasksArray.push(addedTask)
         Storage.saveAll(projectsArray, tasksArray);
+
+    })
+
+    Inputs.taskClick(function (e){
+
+
+        const selectedTaskID = e.target.parentNode.id
+        const indexOfTheTask = indexOfTask(tasksArray, selectedTaskID)
+
+        if(e.target.classList.contains("taskHoverCheck")){
+            console.log("Change the done status")
+        }
+
+        if(e.target.classList.contains("taskHoverDelete")){
+            deleteTask(indexOfTheTask);
+            e.target.parentNode.remove();
+            Storage.saveAll(projectsArray, tasksArray);
+        }
+
+        if(e.target.classList.contains("taskHoverEdit")){
+            console.log("Edit")
+        }
 
     })
 
@@ -117,10 +184,14 @@ const UI = (function () {
 
 	// -- On first Load -- //
 
+    if(projectsArray.indexOf(currentlySelectedProject) === -1){
+        currentlySelectedProject = "misc"
+    }
+
 	ProjectsDOM.renderAllProjects(projectsArray);
     ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
-    const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
-    TaskDOM.renderTaskList(filteredArray);
+
+    resetAndCreateTasks();
 
     if (currentlySelectedProject === "allProjects"){
         TaskDOM.renderAllTasks(tasksArray, projectsArray);
@@ -129,7 +200,7 @@ const UI = (function () {
     if (tasksArray.length === 0){
         console.log("Explain new stuff!")
     }
-    
+
 
 })();
 

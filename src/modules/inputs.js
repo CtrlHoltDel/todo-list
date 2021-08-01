@@ -49,6 +49,15 @@ const Inputs = (function () {
 		});
 	};
 
+	const projectDelete = function(passthrough) {
+		projectsDiv.addEventListener("click", function (e) {
+			if(e.target.classList.contains("projectDeleteButton")){
+        		passthrough(e);
+        		return
+      		}
+		});
+	}
+
 	// -- Tasks -- //
 
 	const loadAllTasks = function(passthrough) {
@@ -130,13 +139,21 @@ const Inputs = (function () {
 
  	};
 
+	const taskClick = function(passthrough){
+		tasksDiv.addEventListener("click", function (e) {
+			passthrough(e);
+		});
+	}
+
 	return {
 		projectSubmit,
 		getProjectInput,
 		projectSelect,
+		projectDelete,
 		taskMouseover,
 		taskSubmit,
 		getTaskInputs,
+		taskClick,
 		loadAllTasks,
 		loadThisWeek,
 		loadThisMonth
