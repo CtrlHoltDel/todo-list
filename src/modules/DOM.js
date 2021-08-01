@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 const projectListDOM = document.getElementById("projects");
 const taskListDOM = document.getElementById("tasks");
 
@@ -120,8 +122,26 @@ const ProjectsDOM = (function () {
 	return { renderAllProjects, addSingleProject, addCurrentlySelectedStyle, removeCurrentlySelectedStyle };
 })();
 
-const EditingDOM = (function(){
+const EditModal = (function(){
+
+	const editModal = document.getElementById("editModal")
+	const title = document.getElementById("editTitle")
+	const date = document.getElementById("editDate")
+	const note = document.getElementById("editNote")
+
+
+	const editTask = function(task){
+		const splitDate = task.date.split("-")
+
+		editModal.style.display = "flex";
+		title.setAttribute("placeholder", task.title)
+		date.setAttribute("value", `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`)
+		note.setAttribute("placeholder", task.note)
+	}
+
+	return { editTask }
 
 })();
 
-export { TaskDOM, ProjectsDOM };
+export { TaskDOM, ProjectsDOM, EditModal };
+ 

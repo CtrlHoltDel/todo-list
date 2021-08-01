@@ -13,6 +13,7 @@ const Inputs = (function () {
 	const allTasksButton = document.getElementById("loadAllTasks")
 	const thisWeekButton = document.getElementById("loadThisWeek")
 	const thisMonthButton = document.getElementById("loadThisMonth")
+	const editButtonModal = document.getElementById("editModalSubmit")
 
 	//Misc elements
 	const tasksDiv = document.getElementById("tasks");
@@ -110,8 +111,6 @@ const Inputs = (function () {
 
 		//Check to make sure the input date is after the current date.
 
-		console.log(dateInput.value)
-
 		const splitInputDate = (dateInput.value.split("-"))
 		const splitTodaysDate = (format(new Date(), "dd-MM-yyyy")).split("-")
 		const inputDate = format(new Date(splitInputDate[0], splitInputDate[1]-1, splitInputDate[2]), "dd-MM-yyyy")
@@ -145,6 +144,13 @@ const Inputs = (function () {
 		});
 	}
 
+	const editModalSubmit = function(passthrough){
+		editButtonModal.addEventListener("click", function(e){
+			e.preventDefault();
+			passthrough(e);
+		})
+	}
+
 	return {
 		projectSubmit,
 		getProjectInput,
@@ -154,6 +160,7 @@ const Inputs = (function () {
 		taskSubmit,
 		getTaskInputs,
 		taskClick,
+		editModalSubmit,
 		loadAllTasks,
 		loadThisWeek,
 		loadThisMonth

@@ -10,6 +10,7 @@ Todo list made for the TOP curriculum.
 - Added ability to add both tasks and projects.
 - Added feature that allows the browser to remember the task you had selected in the previous session and load those tasks accordingly.
 - Added some date-fns functions to check the current date/to make sure an input task isn't before the current date.
+- Fixed bug that stopped projects from changing after adding a new project.
 
 ## 31/07/2021
 

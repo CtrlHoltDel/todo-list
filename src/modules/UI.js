@@ -1,6 +1,6 @@
 import { Storage } from "./storage";
 import { Inputs } from "./inputs";
-import { TaskDOM, ProjectsDOM } from "./DOM";
+import { TaskDOM, ProjectsDOM, EditModal } from "./DOM";
 import { filterTaskList, filterByDate, indexOfTask } from "./misc";
 
 class Task {
@@ -31,6 +31,11 @@ const UI = (function () {
     const resetAndCreateTasks = function(){
         const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
         TaskDOM.renderTaskList(filteredArray);
+    }
+
+    const getTaskByID = function(id){
+        const currentTask = tasksArray.filter(task => task.id == id)
+        return currentTask
     }
 
 	// -- Loading from Local Storage -- //
@@ -65,6 +70,15 @@ const UI = (function () {
 
         ProjectsDOM.addSingleProject(projectInput);
         projectsArray.push(projectInput);
+
+        currentlySelectedProject = projectInput
+
+        ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject)
+        const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
+        TaskDOM.renderTaskList(filteredArray);
+
+
+        Storage.saveCurrentProject(projectInput);
         Storage.saveAll(projectsArray, tasksArray);
         return;
 
@@ -138,7 +152,8 @@ const UI = (function () {
 
         const selectedTaskID = e.target.parentNode.id
         const indexOfTheTask = indexOfTask(tasksArray, selectedTaskID)
-
+        const currentTask = getTaskByID(selectedTaskID)
+        
         if(e.target.classList.contains("taskHoverCheck")){
             console.log("Change the done status")
         }
@@ -150,8 +165,14 @@ const UI = (function () {
         }
 
         if(e.target.classList.contains("taskHoverEdit")){
-            console.log("Edit")
-        }
+
+            EditModal.editTask(currentTask[0])
+            Inputs.editModalSubmit(function(e){
+                console.log(currentTask)
+            })
+        
+
+        }       
 
     })
 
@@ -188,6 +209,10 @@ const UI = (function () {
         currentlySelectedProject = "misc"
     }
 
+    if(projectsArray[0] === undefined){
+        projectsArray.push("misc")
+    }
+    
 	ProjectsDOM.renderAllProjects(projectsArray);
     ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
 
@@ -200,7 +225,7 @@ const UI = (function () {
     if (tasksArray.length === 0){
         console.log("Explain new stuff!")
     }
-
+    
 
 })();
 
