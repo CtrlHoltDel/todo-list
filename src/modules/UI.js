@@ -1,14 +1,15 @@
-import Task from "./classes"
-import { ProjectsDOM, StyleDOM, wholeApp } from "./DOM";
+import { Task } from "./classes"
+import { ProjectsDOM, TasksDOM, StyleDOM, wholeApp } from "./DOM";
 import { Input, GetInput } from "./inputs"
 import { Storage } from "./storage"
+import { filter } from "./filters"
 
 const UI = (function(){
 
     // -- Global variables -- //
 
-    const allTasksArray = []
-    let projectsArray = [ "car", "cleaning", "website"]
+    let allTasksArray = []
+    let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
 
     const resetToAll = function(){
@@ -19,10 +20,10 @@ const UI = (function(){
 
     // -- Event Listeners -- //
 
-    Input.newProject(function(e){
+    Input.newProject(function(){
         const projectInput = GetInput.projectName()
 
-        if(projectsArray.indexOf(projectInput) != -1){
+        if(allProjectsArray.indexOf(projectInput) != -1){
             console.log("Can't use the same name")
             return
         }
@@ -33,9 +34,9 @@ const UI = (function(){
         }
 
         ProjectsDOM.renderSingle(projectInput)
-        projectsArray.push(projectInput)
-        console.log(projectsArray)
-        Storage.saveProjects(projectsArray)
+        allProjectsArray.push(projectInput)
+        console.log(allProjectsArray)
+        Storage.saveProjects(allProjectsArray)
     })
 
     Input.chooseProject(function(e){
@@ -43,6 +44,18 @@ const UI = (function(){
         currentlySelectedProject = clickedProjectName
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.addCurrentlySelected(e.target)
+
+        if(clickedProjectName === "This Week" || clickedProjectName === "Today" ) return
+
+        if(clickedProjectName === "All"){
+            TasksDOM.clearAndRenderTasks(allTasksArray)
+            return
+        } 
+
+        const filteredList = filter.byProject(allTasksArray, currentlySelectedProject);
+        console.log(filteredList)
+        TasksDOM.clearAndRenderTasks(filteredList)
+
     })
 
     Input.deleteProject(function(e){
@@ -50,22 +63,49 @@ const UI = (function(){
         let clickedProjectElement = e.target.parentNode.id != "" ? e.target.parentNode : e.target.parentNode.parentNode;
 
         ProjectsDOM.deleteSingle(clickedProjectElement)
-        projectsArray.splice(projectsArray.indexOf(clickedProjectElement.id.toLowerCase()), 1)
+        allProjectsArray.splice(allProjectsArray.indexOf(clickedProjectElement.id.toLowerCase()), 1)
 
         if(clickedProjectElement.id === currentlySelectedProject){
             resetToAll();
         }
 
-        Storage.saveProjects(projectsArray)
+        Storage.saveProjects(allProjectsArray)
+
+    })
+
+    Input.newTask(function(){
+        console.log(allTasksArray)
+        const taskInputData = GetInput.form()
+
+        if(taskInputData === null){
+            return
+        }
+
+        const task = new Task(taskInputData[0], taskInputData[1], taskInputData[2], currentlySelectedProject)
+        TasksDOM.renderSingle(task);
+        allTasksArray.push(task)
+        
+        Storage.saveTasks(allTasksArray)
+
+        console.log(allTasksArray)
 
     })
 
     // -- On Load -- //
 
+
+    wholeApp.setDateInputParameters();
+
     if(Storage.loadProjects() != null){
-        projectsArray = Storage.loadProjects()
+        allProjectsArray = Storage.loadProjects()
     }
-    ProjectsDOM.renderAll(projectsArray)
+
+    if(Storage.loadTasks() != null){
+        allTasksArray = Storage.loadTasks()
+    }
+
+    TasksDOM.renderAll(allTasksArray)
+    ProjectsDOM.renderAll(allProjectsArray)
 
 
 })();

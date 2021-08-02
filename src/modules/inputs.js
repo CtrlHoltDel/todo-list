@@ -1,7 +1,10 @@
-const submitProjectButton = document.getElementById("submitProjectButton")
-const allProjectsContainer = document.querySelector(".mainContainer__projectListDiv__projectList")
+import { format, isBefore } from "date-fns";
 
 const Input = (function(){
+
+	const submitProjectButton = document.getElementById("submitProjectButton")
+	const allProjectsContainer = document.querySelector(".mainContainer__projectListDiv__projectList")
+	const submitTaskButton = document.getElementById("taskSubmit")
 
 	const newProject = function(passthrough){
 		submitProjectButton.addEventListener("click", function(e){
@@ -26,7 +29,14 @@ const Input = (function(){
 		})
 	}
 
-	return { newProject, chooseProject, deleteProject }
+	const newTask = function(passthrough){
+		submitTaskButton.addEventListener("click", function(e){
+			e.preventDefault();
+			passthrough()
+		})
+	}
+
+	return { newProject, chooseProject, deleteProject, newTask }
 
 })();
 
@@ -40,7 +50,52 @@ const GetInput = (function(){
 		return valueToReturn
 	}
 
-	return { projectName }
+	const form = function(){
+
+		const title = document.getElementById("titleInput")
+		const date = document.getElementById("dateInput")
+		const note = document.getElementById("noteInput")
+
+		const todaysDate = format(new Date, "yyyy-MM-dd").split("-")
+		const inputtedDate = date.value.split("-")
+		const beforeCheck = isBefore(new Date(inputtedDate[0], inputtedDate[1], inputtedDate[2]), new Date(todaysDate[0], todaysDate[1], todaysDate[2]))
+
+		console.log(todaysDate)
+
+		let missedInputs = 0
+
+		if(title.value === ""){
+			console.log("fix title")
+			missedInputs++
+		}
+
+		if(note.value === ""){
+			console.log("fix note")
+			missedInputs++
+		}
+
+		if(beforeCheck){
+			console.log("The date is before")
+			missedInputs++
+		}
+
+		if(missedInputs > 0){
+			return null
+		}
+
+		const arrayToReturn = [ title.value, date.value, note.value ]
+
+		title.value = ""
+		date.value = `${todaysDate[0]}-${todaysDate[1]}-${todaysDate[2]}`
+		note.value = ""
+
+		console.log(arrayToReturn)
+
+		return arrayToReturn
+
+	}
+
+	return { projectName, form }
 
 })();
 

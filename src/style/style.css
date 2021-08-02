@@ -50,14 +50,15 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 87vh;
+  height: 80vh;
   width: 100vw;
 }
 
 .mainContainer__projectListDiv {
   height: 100%;
-  width: 20%;
-  min-width: 250px;
+  max-width: 350px;
+  min-width: 350px;
+  width: 22%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -81,7 +82,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 80%;
-  margin: 5% 0%;
+  margin: 20px 0%;
 }
 
 .mainContainer__projectListDiv__input form {
@@ -215,7 +216,137 @@ body {
 
 .mainContainer__taskListDiv {
   height: 100%;
-  width: 80%;
+  min-width: 76%;
+  overflow: auto;
+}
+
+.mainContainer__taskListDiv__container {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.mainContainer__taskListDiv__container .taskContainer {
+  margin-top: 3px;
+  width: 100%;
+  min-height: 35px;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #e9f5db;
+  color: #718355;
+  border-radius: 5px;
+  padding: 5px 0px;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskLineDividerDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 20px;
+  height: 100%;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskLineDividerDiv .taskLineDivider {
+  height: 80%;
+  width: 2px;
+  background-color: #8292694f;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+  width: 10%;
+  margin-left: 10px;
+  min-width: 114px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskDate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 90px;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskNote {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskButtons {
+  margin-right: 10px;
+  min-width: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskButtons .taskDelete {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 35px;
+  color: #7183551e;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskButtons .taskDelete:hover {
+  cursor: pointer;
+  color: #ee5a5a !important;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskButtons .taskEdit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 25px;
+  color: #7183551e;
+}
+
+.mainContainer__taskListDiv__container .taskContainer .taskButtons .taskEdit:hover {
+  cursor: pointer;
+  color: black !important;
+}
+
+.mainContainer__taskListDiv__container .taskContainer:hover .taskButtons .taskDelete {
+  color: #718355;
+}
+
+.mainContainer__taskListDiv__container .taskContainer:hover .taskButtons .taskEdit {
+  color: #718355;
 }
 
 .dangerColour {
@@ -247,10 +378,24 @@ body {
   color: #e9f5db !important;
 }
 
+.completedTask {
+  background-color: #bbbbbb !important;
+  color: lightgray !important;
+}
+
 footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #718355;
   color: #e9f5db;
-  height: 3vh;
+  min-height: 10vh;
   width: 100vw;
 }
 /*# sourceMappingURL=style.css.map */

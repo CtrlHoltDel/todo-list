@@ -1,4 +1,7 @@
+import format from "date-fns/format";
+
 const projectsContainerDiv = document.querySelector(".mainContainer__projectListDiv__projectList")
+const tasksContainerDiv = document.querySelector(".mainContainer__taskListDiv__container")
 
 const ProjectsDOM = (function(){
 
@@ -33,6 +36,76 @@ const ProjectsDOM = (function(){
 
 })();
 
+const TasksDOM = (function(){
+
+	const renderSingle = function(task){
+
+ 		const createElement = function(className, content){
+			const element = document.createElement("div")
+			element.classList.add(className)
+
+			if(content != undefined){
+				element.innerHTML = content
+			}
+
+			return element
+		}
+
+		const taskLineDividerCreator = function(){
+			const taskLineDividerDiv = createElement("taskLineDividerDiv")
+			const taskLineDivider = createElement("taskLineDivider")
+			taskLineDividerDiv.appendChild(taskLineDivider)
+
+			return taskLineDividerDiv
+		}
+
+		const taskContainer = createElement("taskContainer")
+		const taskTitle = createElement("taskTitle", task.title)
+		const taskDate = createElement("taskDate", task.date)
+		const taskNote = createElement("taskNote", task.note)
+		const taskButtons = createElement("taskButtons")
+		const taskEdit = createElement("taskEdit")
+		const taskDelete = createElement("taskDelete")
+
+		taskEdit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>`
+		taskDelete.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 projectDeleteButton"viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z" clip-rule="evenodd" /> </svg>`
+		const appendArray = [
+			taskTitle,
+			taskLineDividerCreator(),
+			taskDate,
+			taskLineDividerCreator(),
+			taskNote,
+			taskLineDividerCreator(),
+			taskButtons,
+		];
+
+		tasksContainerDiv.appendChild(taskContainer)
+		appendArray.forEach(div => taskContainer.appendChild(div))
+		appendArray.forEach(div => {
+			if(!div.classList.contains("taskButtons")) div.classList.add("taskidwillgohere")
+		})
+		taskButtons.appendChild(taskEdit)
+		taskButtons.appendChild(taskDelete)
+
+	}
+
+	const renderAll = function(array){
+		array.forEach(task => renderSingle(task))
+	}
+	
+	const clearTasks = function(){
+		tasksContainerDiv.innerHTML = ""
+	}
+
+	const clearAndRenderTasks = function(array){
+		clearTasks();
+		renderAll(array);
+	}
+
+	return { renderSingle, renderAll, clearTasks, clearAndRenderTasks }
+
+})();
+
 const StyleDOM = (function(){
 
 	const resetCurrentlySelected = function(){
@@ -41,7 +114,6 @@ const StyleDOM = (function(){
 	}
 
 	const addCurrentlySelected = function(element){
-		console.log(element)
 		const nodeLength = element.parentNode.children.length
 		removeCurrentlySelected(element);
 
@@ -74,13 +146,20 @@ const StyleDOM = (function(){
 const wholeApp = (function(){
 
 	const pageTitle = document.querySelector(".header__projectTitle")
+	const dateInput = document.getElementById("dateInput")
 
 	const changeTitle = function(title){
 		pageTitle.innerHTML = title
 	}
 
-	return { changeTitle }
+	const setDateInputParameters = function(){
+		const date = format(new Date, "yyyy-MM-dd").split("-")
+		dateInput.setAttribute("min", `${date[0]}-${date[1]}-${date[2]}`)
+		dateInput.setAttribute("value", `${date[0]}-${date[1]}-${date[2]}`)
+	}
+
+	return { changeTitle, setDateInputParameters }
 
 })();
 
-export { ProjectsDOM, StyleDOM, wholeApp }
+export { ProjectsDOM, TasksDOM, StyleDOM, wholeApp }

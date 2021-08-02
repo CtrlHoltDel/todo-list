@@ -4,7 +4,7 @@ class Task {
     this.title = title,
     this.date = date,
     this.note = note,
-    this.complteted = false,
+    this.completed = false,
     this.id = Math.random();
   }
 }
