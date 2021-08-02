@@ -4,41 +4,33 @@
 		<meta charset="utf-8" lang="en" />
 	</head>
 	<body>
-		<div id="editModal">
-			<form action="">
-				<label for="editTitle">Edit Title</label>
-				<input type="text" id="editTitle">
-				<label for="editDate">Edit Date</label>
-				<input type="date" id="editDate">
-				<label for="editNote">Edit Note</label>
-				<input type="text" id="editNote">
-				<button id="editModalSubmit">Submit</button>
-			</form>
-
-		</div>
-		<div class="container">
-			<div id="projects" class="projectsSetDiv"></div>
-			<div id="tasks"></div>
-		</div>
-		<div id="inputs">
-			<form action="">
-				<input type="text" placeholder="Project" data-project-input />
-				<button type="submit" class="projectSubmit">button</button>
-			</form>
-			<form action="">
-				<label for="titleInput">Title</label>
-				<input type="text" id="titleInput" />
-				<label for="dateInput">Date</label>
-				<input type="date" id="dateInput" />
-				<label for="noteInput">Note</label>
-				<input type="text" id="noteInput" />
-				<button class="taskSubmit">Submit</button>
-			</form>
-			<div class="testButtons">
-				<button id="loadAllTasks">All Tasks</button>
-				<button id="loadThisWeek">This week</button>
-				<button id="loadThisMonth">This Month</button>
+		<header class="header">
+			<div class="header__title">Todo List</div>
+			<div class="header__projectTitle">All</div>
+			<!-- <div class="header__settings">Settings</div> -->
+		</header>
+		<div class="mainContainer">
+			<div class="mainContainer__projectListDiv">
+				<div class="mainContainer__projectListDiv__input">
+					<form action="" >
+						<input type="" id="projectInput" placeholder="Add new project..">
+						<button id="submitProjectButton"></button>
+					</form>
+				</div>
+				<div class="mainContainer__projectListDiv__projectList">
+					<div id="All" class="mainContainer__projectListDiv__projectList__projectContainerStatic">
+						<div class="projectName currentlySelectedFontColour currentlySelected" id="reset_Style">All</div>
+					</div>
+					<div id="Today" class="mainContainer__projectListDiv__projectList__projectContainerStatic">
+						<div class="projectName">Today</div>
+					</div>
+					<div id="This Week" class="mainContainer__projectListDiv__projectList__projectContainerStatic">
+						<div class="projectName">This week</div>
+					</div>	
+				</div>
 			</div>
+			<div class="mainContainer__taskListDiv"></div>
 		</div>
+		<footer></footer>
 	</body>
 </html>

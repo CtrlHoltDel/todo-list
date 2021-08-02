@@ -3,7 +3,7 @@ const Storage = (function () {
 	//Local storage variables
 	let taskArrayKey = "LOCAL_STORAGE_CURRENT_TASKS";
 	let projectArrayKey = "LOCAL_STORAGE_CURRENT_PROJECTS";
-	let projectCurrentKey = "LOCAL_STORAGE_CURRENTLY_SELECETE_PROJECT";
+	let projectCurrentKey = "LOCAL_STORAGE_CURRENTLY_SELEC_PROJECT";
 
 	//Saving and loading functions
 	// -- SAVING -- //

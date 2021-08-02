@@ -1,218 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
 * {
-  padding: 0px;
   margin: 0px;
+  padding: 0px;
 }
 
-.container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100vw;
-  height: 90vh;
+body {
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
 }
 
-#projects {
-  width: 30%;
-  height: 100%;
-  background-color: #e9d9bd;
-}
-
-#tasks {
-  width: 70%;
-  height: 100%;
-  background-color: #ecc272;
-  overflow: scroll;
-}
-
-#inputs {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
+.header {
+  background-color: #718355;
+  color: #e9f5db;
   height: 10vh;
-  background-color: #b43333;
-}
-
-.noTasks {
-  background-color: rgba(0, 0, 0, 0.226);
-  padding: 20px 0px;
-  width: 100%;
-  text-align: center;
-}
-
-.projectDeleteButton {
-  background-color: #8d6363;
-}
-
-.projectDeleteButton:hover {
-  cursor: pointer;
-  background-color: #743c3c;
-}
-
-.taskHoverDiv {
-  background-color: rgba(0, 0, 0, 0.226);
-  height: 6%;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.taskHoverDiv .taskHoverTitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 15%;
-  height: 100%;
-  text-align: center;
-}
-
-.taskHoverDiv .taskHoverDate {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 10%;
-  height: 100%;
-}
-
-.taskHoverDiv .taskHoverNote {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 65%;
-  height: 100%;
-}
-
-.taskHoverDiv .taskHoverDelete {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 5%;
-  height: 100%;
-  background-color: #966464;
-}
-
-.taskHoverDiv .taskHoverDelete:hover {
-  cursor: pointer;
-  background-color: #794747;
-}
-
-.taskHoverDiv .taskHoverEdit {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 5%;
-  height: 100%;
-  background-color: #7878c9;
-}
-
-.taskHoverDiv .taskHoverEdit:hover {
-  cursor: pointer;
-  background-color: #9999dd;
-}
-
-.projectNameStyle {
-  width: 90%;
-  height: 3rem;
-  padding: 0px 5%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.projectNameButton {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 90%;
-  height: 100%;
-}
-
-.projectNameButton:hover {
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.308);
-}
-
-.projectDeleteButton {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 10%;
-  height: 100%;
-}
-
-.currentlySelectedProject {
-  background-color: orange;
-  color: purple;
-}
-
-.currentlySelectedProject:hover {
-  cursor: pointer;
-  background-color: orange;
-}
-
-#editModal {
-  display: none;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: absolute;
-  height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.37);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 3rem;
 }
 
-#editModal form {
+.header__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 80%;
+  padding-left: 2.5%;
+}
+
+.header__projectTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 20%;
+}
+
+.mainContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 87vh;
+  width: 100vw;
+}
+
+.mainContainer__projectListDiv {
+  height: 100%;
+  width: 20%;
+  min-width: 250px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -220,5 +65,192 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mainContainer__projectListDiv__input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin: 5% 0%;
+}
+
+.mainContainer__projectListDiv__input form {
+  width: 100%;
+}
+
+.mainContainer__projectListDiv__input form input {
+  margin-top: 5px;
+  font-size: 1.5rem;
+  width: 100%;
+  background-color: #718355;
+  border: none;
+  height: 30px;
+  color: #e9f5db;
+  border-radius: 5px;
+  padding: 5px 0px;
+  text-align: center;
+}
+
+.mainContainer__projectListDiv__input form input::-webkit-input-placeholder {
+  color: #e9f5db;
+}
+
+.mainContainer__projectListDiv__input form input:-ms-input-placeholder {
+  color: #e9f5db;
+}
+
+.mainContainer__projectListDiv__input form input::-ms-input-placeholder {
+  color: #e9f5db;
+}
+
+.mainContainer__projectListDiv__input form input::placeholder {
+  color: #e9f5db;
+}
+
+.mainContainer__projectListDiv__input form button {
+  position: absolute;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.mainContainer__projectListDiv__projectList {
+  width: 80%;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 5px;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer .projectName {
+  padding-left: 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 85%;
+  border-radius: 5px 0px 0px 5px;
+  font-size: 1.5rem;
+  background-color: #f6f2f0;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer .projectName:hover {
+  cursor: pointer;
+  background-color: #718355;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer .projectDeleteButton {
+  color: #f6f2f0;
+  width: 15%;
+  aspect-ratio: 1/1;
+  border-radius: 0px 5px 5px 0px;
+  background-color: #f6f2f0;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer .projectDeleteButton:hover {
+  cursor: pointer;
+  color: #ee5a5a;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer:hover .projectName {
+  color: #e9f5db;
+  background-color: #718355;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainer:hover .projectDeleteButton {
+  background-color: #718355;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainerStatic {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainerStatic .projectName {
+  border-radius: 5px;
+  padding-left: 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  font-size: 1.5rem;
+  background-color: #f6f2f0;
+}
+
+.mainContainer__projectListDiv__projectList__projectContainerStatic .projectName:hover {
+  cursor: pointer;
+  color: #e9f5db;
+  background-color: #718355;
+}
+
+.mainContainer__taskListDiv {
+  height: 100%;
+  width: 80%;
+}
+
+.dangerColour {
+  background-color: #ee5a5a !important;
+  font-size: 2rem;
+}
+
+.dangerColour::-webkit-input-placeholder {
+  color: black !important;
+}
+
+.dangerColour:-ms-input-placeholder {
+  color: black !important;
+}
+
+.dangerColour::-ms-input-placeholder {
+  color: black !important;
+}
+
+.dangerColour::placeholder {
+  color: black !important;
+}
+
+.currentlySelected {
+  background-color: #718355 !important;
+}
+
+.currentlySelectedFontColour {
+  color: #e9f5db !important;
+}
+
+footer {
+  background-color: #718355;
+  color: #e9f5db;
+  height: 3vh;
+  width: 100vw;
 }
 /*# sourceMappingURL=style.css.map */

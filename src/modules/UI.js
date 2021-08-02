@@ -1,232 +1,73 @@
-import { Storage } from "./storage";
-import { Inputs } from "./inputs";
-import { TaskDOM, ProjectsDOM, EditModal } from "./DOM";
-import { filterTaskList, filterByDate, indexOfTask } from "./misc";
+import Task from "./classes"
+import { ProjectsDOM, StyleDOM, wholeApp } from "./DOM";
+import { Input, GetInput } from "./inputs"
+import { Storage } from "./storage"
 
-class Task {
-    constructor(title, date, note, project){
-    this.project = project,
-    this.title = title,
-    this.date = date,
-    this.note = note,
-    this.complteted = false,
-    this.id = Math.random();
-  }
-}
+const UI = (function(){
 
-const UI = (function () {
+    // -- Global variables -- //
 
-	// -- Global variables -- //
+    const allTasksArray = []
+    let projectsArray = [ "car", "cleaning", "website"]
+    let currentlySelectedProject = "all"
 
-	let tasksArray = [];
-	let projectsArray = ["misc"];
-    let currentlySelectedProject = "misc"
-
-    // -- Variable functions -- //
-
-    const deleteTask = function(index){
-        tasksArray.splice(index, 1);
+    const resetToAll = function(){
+        currentlySelectedProject = "all"
+        wholeApp.changeTitle(currentlySelectedProject)
+        StyleDOM.resetCurrentlySelected()
     }
 
-    const resetAndCreateTasks = function(){
-        const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
-        TaskDOM.renderTaskList(filteredArray);
-    }
+    // -- Event Listeners -- //
 
-    const getTaskByID = function(id){
-        const currentTask = tasksArray.filter(task => task.id == id)
-        return currentTask
-    }
-
-	// -- Loading from Local Storage -- //
-
-	if (Storage.loadTasks() != null && Storage.loadTasks()[0] != undefined) {
-		tasksArray = Storage.loadTasks();
-		console.warn("something in task storage");
-	}
-
-	if (Storage.loadProjects() != null) {
-		projectsArray = Storage.loadProjects();
-		console.warn("something in project storage");
-	}
-
-    if (Storage.loadCurrentProject() != null ) {
-        currentlySelectedProject = Storage.loadCurrentProject();
-    }
-
-	// -- Event Listeners -- //
-
-	Inputs.projectSubmit(function (e) {
-		const projectInput = Inputs.getProjectInput();
-
-        if(projectInput === null){
-            return
-        }
+    Input.newProject(function(e){
+        const projectInput = GetInput.projectName()
 
         if(projectsArray.indexOf(projectInput) != -1){
-            console.warn("already a project with this name - Add visual warning.")
+            console.log("Can't use the same name")
             return
         }
 
-        ProjectsDOM.addSingleProject(projectInput);
-        projectsArray.push(projectInput);
-
-        currentlySelectedProject = projectInput
-
-        ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject)
-        const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
-        TaskDOM.renderTaskList(filteredArray);
-
-
-        Storage.saveCurrentProject(projectInput);
-        Storage.saveAll(projectsArray, tasksArray);
-        return;
-
-	});
-
-    Inputs.projectSelect(function(e){
-
-        //Keeping and memorizing the selected ID.
-        const selectedID = e.target.parentNode.id
-        currentlySelectedProject = selectedID
-        ProjectsDOM.addCurrentlySelectedStyle(selectedID)
-        Storage.saveCurrentProject(selectedID)
-
-        //Changing the tasks.
-        const filteredArray = filterTaskList(tasksArray, currentlySelectedProject);
-        TaskDOM.renderTaskList(filteredArray);
-
-    })
-
-    Inputs.projectDelete(function(e){
-        
-        const selectedProject = e.target.parentNode.id
-        console.log(e.target.parentNode.id)
-
-        if(e.target.parentNode.id === currentlySelectedProject){
-            currentlySelectedProject = "misc"
-            ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
-            resetAndCreateTasks();
-        }
-
-        if(selectedProject === "misc"){
-            console.warn("You can't delete misc")
+        if(projectInput === ""){
+            console.log("Needs an input")
             return
         }
 
-        const indexOfProject = projectsArray.indexOf(selectedProject)
-        projectsArray.splice(indexOfProject, 1)
-        e.target.parentNode.remove();
-
-        let idOfTasksWithProject = []
-
-        tasksArray.forEach(task => {
-            if(task.project === selectedProject){
-                idOfTasksWithProject.push(task.id)
-            }
-        })
-
-        idOfTasksWithProject.forEach(id => deleteTask(id))
-
-        Storage.saveAll(projectsArray, tasksArray);
-        
+        ProjectsDOM.renderSingle(projectInput)
+        projectsArray.push(projectInput)
+        console.log(projectsArray)
+        Storage.saveProjects(projectsArray)
     })
-    
-    Inputs.taskSubmit(function (e){
 
-        const taskInputArray = Inputs.getTaskInputs()
+    Input.chooseProject(function(e){
+        const clickedProjectName = e.target.parentNode.id
+        currentlySelectedProject = clickedProjectName
+        wholeApp.changeTitle(currentlySelectedProject)
+        StyleDOM.addCurrentlySelected(e.target)
+    })
 
-        if(taskInputArray === null){
-            return
+    Input.deleteProject(function(e){
+
+        let clickedProjectElement = e.target.parentNode.id != "" ? e.target.parentNode : e.target.parentNode.parentNode;
+
+        ProjectsDOM.deleteSingle(clickedProjectElement)
+        projectsArray.splice(projectsArray.indexOf(clickedProjectElement.id.toLowerCase()), 1)
+
+        if(clickedProjectElement.id === currentlySelectedProject){
+            resetToAll();
         }
 
-        const addedTask = new Task(taskInputArray[0], taskInputArray[1], taskInputArray[2], currentlySelectedProject)
-        TaskDOM.createTaskDiv(addedTask)
-        tasksArray.push(addedTask)
-        Storage.saveAll(projectsArray, tasksArray);
+        Storage.saveProjects(projectsArray)
 
     })
 
-    Inputs.taskClick(function (e){
+    // -- On Load -- //
 
-
-        const selectedTaskID = e.target.parentNode.id
-        const indexOfTheTask = indexOfTask(tasksArray, selectedTaskID)
-        const currentTask = getTaskByID(selectedTaskID)
-        
-        if(e.target.classList.contains("taskHoverCheck")){
-            console.log("Change the done status")
-        }
-
-        if(e.target.classList.contains("taskHoverDelete")){
-            deleteTask(indexOfTheTask);
-            e.target.parentNode.remove();
-            Storage.saveAll(projectsArray, tasksArray);
-        }
-
-        if(e.target.classList.contains("taskHoverEdit")){
-
-            EditModal.editTask(currentTask[0])
-            Inputs.editModalSubmit(function(e){
-                console.log(currentTask)
-            })
-        
-
-        }       
-
-    })
-
-	Inputs.taskMouseover(function (e) {
-		if (e.target.classList.contains("taskHoverDelete")) {
-			//Ignoring the delete key when hovering over the project.
-			return;
-		}
-		if (e.target.parentNode.classList.contains("taskHoverCheck")) {
-			//Hovering over the title, description and date.
-		}
-	});
-
-    Inputs.loadAllTasks(function (e){
-        TaskDOM.renderAllTasks(tasksArray, projectsArray);
-        currentlySelectedProject = "filtered"
-    })
-
-    Inputs.loadThisWeek(function(e){
-        const filteredArray = filterByDate(tasksArray, "week");
-        TaskDOM.renderAllTasks(filteredArray, projectsArray);
-        currentlySelectedProject = "filtered"
-    })
-
-    Inputs.loadThisMonth(function(e){
-        const filteredArray = filterByDate(tasksArray, "month")
-        TaskDOM.renderAllTasks(filteredArray, projectsArray);
-        currentlySelectedProject = "filtered"
-    })
-
-	// -- On first Load -- //
-
-    if(projectsArray.indexOf(currentlySelectedProject) === -1){
-        currentlySelectedProject = "misc"
+    if(Storage.loadProjects() != null){
+        projectsArray = Storage.loadProjects()
     }
+    ProjectsDOM.renderAll(projectsArray)
 
-    if(projectsArray[0] === undefined){
-        projectsArray.push("misc")
-    }
-    
-	ProjectsDOM.renderAllProjects(projectsArray);
-    ProjectsDOM.addCurrentlySelectedStyle(currentlySelectedProject);
-
-    resetAndCreateTasks();
-
-    if (currentlySelectedProject === "allProjects"){
-        TaskDOM.renderAllTasks(tasksArray, projectsArray);
-    }
-
-    if (tasksArray.length === 0){
-        console.log("Explain new stuff!")
-    }
-    
 
 })();
 
-export { UI };
+export { UI }

@@ -1,159 +1,198 @@
-*{
-    padding: 0px;
-    margin: 0px;
-  }
-  
-  .container {
-    display: flex;
-    width: 100vw;
-    height: 90vh;
-  }
-  
-  #projects {
-    width: 30%;
-    height: 100%;
-    background-color: rgb(233, 217, 189);
-  }
-  
-  #tasks {
-    width: 70%;
-    height: 100%;
-    background-color: rgb(236, 194, 114);
-    overflow: scroll;
-  }
-  
-  #inputs {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height:10vh;
-    background-color: rgb(180, 51, 51);
-  }
+* {
+  margin: 0px;
+  padding: 0px;
+}
 
-  .noTasks {
-    background-color: rgba(0, 0, 0, 0.226);
-    padding: 20px 0px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .projectDeleteButton {
-    background-color: rgb(141, 99, 99);
-  }
-
-  .projectDeleteButton:hover {
-    cursor: pointer;
-    background-color: rgb(116, 60, 60);
-  }
-
-  .taskHoverDiv {
-    background-color: rgba(0, 0, 0, 0.226);
-    height: 6%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    .taskHoverTitle{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 15%;
-      height: 100%;
-      text-align: center;
-    }
-    .taskHoverDate{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 10%;
-      height: 100%;
-    }
-    .taskHoverNote{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: 65%;
-      height: 100%;
-    }
-
-    .taskHoverDelete{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 5%;
-      height: 100%;
-      background-color: rgb(150, 100, 100);
-    }
-
-    .taskHoverDelete:hover {
-      cursor: pointer;
-      background-color: rgb(121, 71, 71);
-
-    }
-
-    .taskHoverEdit{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 5%;
-      height: 100%;
-      background-color: rgb(120, 120, 201);
-    }
-
-    .taskHoverEdit:hover{
-      cursor: pointer;
-      background-color: rgb(153, 153, 221);  
-    }
-  }
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 
 
-  .projectNameStyle {
-    width: 90%;
-    height: 3rem;
-    padding: 0px 5%;
-    display: flex;
-  }
 
-  .projectNameButton {
+$primary-colour: #718355;
+$secondary-colour: #e9f5db;
+$background-colour: #f6f2f0;
+$danger-colour: #ee5a5a;
+
+$primary-font: 'Rubik', sans-serif;
+
+body {
+  font-family: $primary-font;
+  font-weight: 500;
+}
+
+.header {
+  background-color: $primary-colour;
+  color: $secondary-colour;
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  font-size: 3rem;
+
+  &__title {
     display: flex;
     align-items: center;
-    width: 90%;
     height: 100%;
+    width: 80%;
+    padding-left: 2.5%;
   }
 
-  .projectNameButton:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.308);   
-  }
-
-  .projectDeleteButton {
+  &__projectTitle {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
     height: 100%;
+    width: 20%;
   }
 
-  .currentlySelectedProject {
-    background-color: orange;
-    color: purple;
-  }
+}
 
-  .currentlySelectedProject:hover {
-    cursor: pointer;
-    background-color: orange;
-  }
+.mainContainer {
+  display: flex;
+  height: 87vh;
+  width: 100vw;
 
-  #editModal {
-    display: none;
-    justify-content: center;
+  &__projectListDiv {
+    height: 100%;
+    width: 20%;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.37);
-    form{
+
+    &__input {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      margin: 5% 0%;
+      form {
+        width: 100%;
+        input {
+          margin-top: 5px;
+          font-size: 1.5rem;
+          width: 100%;
+          background-color: $primary-colour;
+          border: none;
+          height: 30px;
+          color: $secondary-colour;
+          border-radius: 5px;
+          padding: 5px 0px;
+          text-align: center;
+        }
+
+        input::placeholder {
+          color: $secondary-colour;
+        }
+        button {
+          position: absolute;
+          border: none;
+          background-color: rgba(0, 0, 0, 0);
+        }
+
+      }
+
     }
+
+    &__projectList {
+      width: 80%;
+      &__projectContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        border-radius: 5px;
+        height: 40px;
+        margin-top: 5px;
+        .projectName {
+          padding-left: 3%;
+          display: flex;
+          align-items: center;
+          width: 85%;
+          border-radius: 5px 0px 0px 5px;
+          font-size: 1.5rem;
+          background-color: $background-colour;
+        }
+
+        .projectName:hover {
+          cursor: pointer;
+          background-color: $primary-colour;
+        }
+        
+        .projectDeleteButton {
+            color: $background-colour;
+            width: 15%;
+            aspect-ratio: 1/1;
+            border-radius: 0px 5px 5px 0px;
+            background-color: $background-colour;
+        }
+
+        .projectDeleteButton:hover {
+          cursor: pointer;
+          color: $danger-colour;
+        }
+      }
+
+      &__projectContainer:hover {
+        .projectName {
+          color: $secondary-colour;
+          background-color: $primary-colour;
+        }
+        .projectDeleteButton {
+          background-color: $primary-colour;
+        }
+      }     
+
+      &__projectContainerStatic {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        height: 40px;
+        margin-top: 5px;
+        .projectName {
+          border-radius: 5px;
+          padding-left: 3%;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-size: 1.5rem;
+          background-color: $background-colour;
+        }
+
+        .projectName:hover {
+          cursor: pointer;
+          color: $secondary-colour;
+          background-color: $primary-colour;
+        }
+      } 
+    }
+
+
   }
+
+  &__taskListDiv {
+    height: 100%;
+    width: 80%;
+  }
+}
+
+.dangerColour {
+  background-color: $danger-colour !important;
+  font-size: 2rem;
+}
+
+.dangerColour::placeholder {
+  color: black !important;
+}
+
+.currentlySelected {
+  background-color: $primary-colour !important;
+}
+
+.currentlySelectedFontColour {
+  color: $secondary-colour !important;
+}
+
+footer {
+  background-color: $primary-colour;
+  color: $secondary-colour;
+  height: 3vh;
+  width: 100vw;
+}

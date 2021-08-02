@@ -1,147 +1,86 @@
-import { format } from 'date-fns'
+const projectsContainerDiv = document.querySelector(".mainContainer__projectListDiv__projectList")
 
-const projectListDOM = document.getElementById("projects");
-const taskListDOM = document.getElementById("tasks");
+const ProjectsDOM = (function(){
 
-const TaskDOM = (function () {
+	const renderSingle = function(projectName){
 
-	const createTaskDiv = function (task) {
-		const createdDiv = document.createElement("div");
-		const title = document.createElement("div");
-		const date = document.createElement("div");
-		const note = document.createElement("div");
-		const deleteButton = document.createElement("div");
-        const editButton = document.createElement("div");
+		projectName = projectName.charAt(0).toUpperCase() + projectName.slice(1);
 
-		createdDiv.classList.add("taskHoverDiv");
-        createdDiv.setAttribute("id", task.id)
-        title.classList.add("taskHoverTitle", "taskHoverCheck");
-        date.classList.add("taskHoverDate", "taskHoverCheck");
-        note.classList.add("taskHoverNote", "taskHoverCheck");
-		deleteButton.classList.add("taskHoverDelete");
-        editButton.classList.add("taskHoverEdit");
+		const mainContainerDiv = document.createElement("div")
+		const projectNameDiv = document.createElement("div")
 
-		title.innerHTML = task.title;
-		date.innerHTML = task.date;
-		note.innerHTML = task.note;
-		deleteButton.innerHTML = "X";
-        editButton.innerHTML = "Edit";
+		mainContainerDiv.setAttribute("id", projectName)
+		mainContainerDiv.classList.add("mainContainer__projectListDiv__projectList__projectContainer")
+		projectNameDiv.classList.add("projectName")
 
-		taskListDOM.append(createdDiv);
-		createdDiv.appendChild(title);
-		createdDiv.appendChild(date);
-		createdDiv.appendChild(note);
-		createdDiv.appendChild(deleteButton);
-        createdDiv.appendChild(editButton);
-	};
-
-	const deleteAllTasks = function(){
-		taskListDOM.innerHTML = ""
-    }
-
-	const renderTaskList = function (taskArray) {
-		deleteAllTasks();
-		taskArray.forEach((task) => createTaskDiv(task));
-	};
-
-	const renderAllTasks = function(taskArray, projectArray){
-		deleteAllTasks();
-		projectArray.forEach(project => {
-			const headerDiv = document.createElement("h1")
-			headerDiv.innerHTML = project
-			taskListDOM.appendChild(headerDiv)
-
-			let filteredArray = taskArray.filter(task => task.project === project)
-
-			if(filteredArray != 0){
-				filteredArray.forEach(task => {
-					createTaskDiv(task)
-				})
-				return
-			}
-
-			let noTasksDiv = document.createElement("div")
-			noTasksDiv.classList.add("noTasks")
-			noTasksDiv.innerHTML = "No tasks"
-			taskListDOM.appendChild(noTasksDiv)
-
-		})
+		projectNameDiv.innerHTML = projectName
+		mainContainerDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 projectDeleteButton"viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z" clip-rule="evenodd" /> </svg>`
+		
+		projectsContainerDiv.appendChild(mainContainerDiv)
+		mainContainerDiv.prepend(projectNameDiv)
 	}
 
-	
+	const renderAll = function(projectArray){
+		projectArray.forEach(projectName => renderSingle(projectName))
+	}
 
-	return { renderTaskList, createTaskDiv, renderAllTasks };
+	const deleteSingle = function(element){
+		element.remove()
+	}
+
+
+	return { renderAll, renderSingle, deleteSingle }
 
 })();
 
-const ProjectsDOM = (function () {
+const StyleDOM = (function(){
 
-	const createProjectDiv = function (projectName) {
-		const createdDiv = document.createElement("div");
-		const title = document.createElement("div");
-		const deleteProject = document.createElement("div");
+	const resetCurrentlySelected = function(){
+		const element = document.getElementById("reset_Style");
+		element.classList.add("currentlySelected", "currentlySelectedFontColour")
+	}
 
-        createdDiv.classList.add("projectNameStyle");
-		deleteProject.classList.add("projectDeleteButton");
-        title.classList.add("projectNameButton");
-        createdDiv.setAttribute("id", projectName);
+	const addCurrentlySelected = function(element){
+		console.log(element)
+		const nodeLength = element.parentNode.children.length
+		removeCurrentlySelected(element);
 
-		title.textContent = projectName;
-		deleteProject.textContent = "🗑️"
-
-		projectListDOM.appendChild(createdDiv);
-		createdDiv.appendChild(title);
-		createdDiv.appendChild(deleteProject);
-	};
-
-	const renderAllProjects = function (projectArray) {
-		projectArray.forEach((project) => createProjectDiv(project));
-	};
-
-	const addSingleProject = function (projectName) {
-		createProjectDiv(projectName);
-	};
-
-    const addCurrentlySelectedStyle = function(selectedID){
-		removeCurrentlySelectedStyle();
-		if(selectedID === "allProjects"){
-			console.log("ALL PROJECTS")
-			return
+		element.parentNode.children[0].classList.add("currentlySelectedFontColour")
+		for(let i=0; i<nodeLength; i++){
+			element.parentNode.children[i].classList.add("currentlySelected")
 		}
 
-        const selectedNode = document.getElementById(selectedID).childNodes[0]
-        selectedNode.classList.add("currentlySelectedProject")
-    }
-
-	const removeCurrentlySelectedStyle = function(){
-		projectListDOM.childNodes.forEach(project => {
-			project.childNodes[0].classList.remove("currentlySelectedProject")
-		})
 	}
 
-	return { renderAllProjects, addSingleProject, addCurrentlySelectedStyle, removeCurrentlySelectedStyle };
-})();
+	const removeCurrentlySelected = function(){
+		const projectsLength = projectsContainerDiv.children.length
 
-const EditModal = (function(){
+		for(let i=0; i<projectsLength; i++){
+			projectsContainerDiv.children[i].children[0].classList.remove("currentlySelected")
+			projectsContainerDiv.children[i].children[0].classList.remove("currentlySelectedFontColour")
+			if(projectsContainerDiv.children[i].children[1] != undefined){
+				projectsContainerDiv.children[i].children[1].classList.remove("currentlySelected")
+				projectsContainerDiv.children[i].children[1].classList.remove("currentlySelectedFontColour")
+			}
+		}
 
-	const editModal = document.getElementById("editModal")
-	const title = document.getElementById("editTitle")
-	const date = document.getElementById("editDate")
-	const note = document.getElementById("editNote")
 
-
-	const editTask = function(task){
-		const splitDate = task.date.split("-")
-
-		editModal.style.display = "flex";
-		title.setAttribute("placeholder", task.title)
-		date.setAttribute("value", `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`)
-		note.setAttribute("placeholder", task.note)
 	}
 
-	return { editTask }
+	return { addCurrentlySelected, removeCurrentlySelected, resetCurrentlySelected}
 
 })();
 
-export { TaskDOM, ProjectsDOM, EditModal };
- 
+const wholeApp = (function(){
+
+	const pageTitle = document.querySelector(".header__projectTitle")
+
+	const changeTitle = function(title){
+		pageTitle.innerHTML = title
+	}
+
+	return { changeTitle }
+
+})();
+
+export { ProjectsDOM, StyleDOM, wholeApp }
