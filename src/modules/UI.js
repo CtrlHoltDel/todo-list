@@ -8,20 +8,30 @@ const UI = (function(){
 
     // -- Global variables -- //
 
-    let allTasksArray = [{project:"Example project", title:"Example Task", date: "2021-10-02", note: "This is an example task.", completed: "False", id: 1}]
+    let allTasksArray = [{project:"example project", title:"Example Task", date: "2021-10-02", note: "This is an example task.", completed: "False", id: 1}]
     let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
 
-    const resetToAll = function(){
+    const resetToAll = () => {
         currentlySelectedProject = "all"
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.resetCurrentlySelected()
     }
 
+    const deleteTaskFromArray = (taskID) => {
+        let indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
+        allTasksArray.splice(indexOfTask, 1)
+    }
+
     // -- Event Listeners -- //
 
-    Input.newProject(function(){
-        const projectInput = GetInput.projectName()
+    Input.newProject(() => {
+        const projectInput = GetInput.projectName().toLowerCase();
+        
+        if(projectInput === "all" || projectInput === "this week" || projectInput === "today"){
+            console.log("Can't use one of the filter names")
+            return
+        }
 
         if(allProjectsArray.indexOf(projectInput) != -1){
             console.log("Can't use the same name")
@@ -36,23 +46,24 @@ const UI = (function(){
         ProjectsDOM.renderSingle(projectInput)
         allProjectsArray.push(projectInput)
         Storage.saveProjects(allProjectsArray)
+
     })
 
-    Input.chooseProject(function(e){
+    Input.chooseProject((e) => {
         const clickedProjectName = e.target.parentNode.id
-        currentlySelectedProject = clickedProjectName
+        currentlySelectedProject = clickedProjectName.toLowerCase();
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.addCurrentlySelected(e.target)
 
-        if(clickedProjectName === "This Week"){
+        if(clickedProjectName === "this Week"){
             TasksDOM.clearTasks();
         }
 
-        if(clickedProjectName === "Today"){
+        if(clickedProjectName === "today"){
             TasksDOM.clearTasks();
         }
 
-        if(clickedProjectName === "All"){
+        if(clickedProjectName === "all"){
             TasksDOM.clearAndRenderTasks(allTasksArray)
             return
         } 
@@ -62,7 +73,7 @@ const UI = (function(){
 
     })
 
-    Input.deleteProject(function(e){
+    Input.deleteProject( e => {
 
         let clickedProjectElement = e.target.parentNode.id != "" ? e.target.parentNode : e.target.parentNode.parentNode;
 
@@ -77,7 +88,7 @@ const UI = (function(){
 
     })
 
-    Input.newTask(function(){
+    Input.newTask(() => {
         console.log(allTasksArray)
         const taskInputData = GetInput.form()
 
@@ -86,16 +97,18 @@ const UI = (function(){
         }
 
         const task = new Task(taskInputData[0], taskInputData[1], taskInputData[2], currentlySelectedProject)
+
+
+        console.log(currentlySelectedProject)
+
         TasksDOM.renderSingle(task);
+
         allTasksArray.push(task)
         
         Storage.saveTasks(allTasksArray)
-
-        console.log(allTasksArray)
-
     })
 
-    Input.taskEditDelete(function(e){
+    Input.taskEditDelete((e) => {
 
         
         let clickedNode 
@@ -111,14 +124,14 @@ const UI = (function(){
 
         if(e.target.classList.contains("taskDeleteButton")){
             //Find a better way of doing this 
-            let indexOfTask = allTasksArray.map(task => task.id == taskClickedID).indexOf(true)
-            allTasksArray.splice(indexOfTask, 1)
-            
-            clickedNode.remove();
 
+            deleteTaskFromArray(taskClickedID);
+            clickedNode.remove();
             Storage.saveTasks(allTasksArray);
+
         } else {
-            console.log("edit")
+
+            console.log(clickedNode.children)
         }
     })
 

@@ -149,7 +149,7 @@ const wholeApp = (function(){
 	const dateInput = document.getElementById("dateInput")
 
 	const changeTitle = function(title){
-		pageTitle.innerHTML = title
+		pageTitle.innerHTML = title.charAt(0).toUpperCase() + title.slice(1);
 	}
 
 	const setDateInputParameters = function(){

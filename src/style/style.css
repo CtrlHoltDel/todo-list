@@ -17,6 +17,9 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-size: 3rem;
 }
 
@@ -28,7 +31,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 100%;
-  width: 80%;
   padding-left: 2.5%;
 }
 
@@ -43,7 +45,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 100%;
-  width: 20%;
+  padding-right: 2.5%;
 }
 
 .mainContainer {
@@ -125,6 +127,7 @@ body {
 }
 
 .mainContainer__projectListDiv__projectList {
+  overflow: auto;
   width: 80%;
 }
 
@@ -137,7 +140,7 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-radius: 5px;
-  height: 40px;
+  min-height: 40px;
   margin-top: 5px;
 }
 
@@ -232,7 +235,6 @@ body {
   margin-top: 3px;
   width: 100%;
   min-height: 35px;
-  height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -8,6 +8,7 @@ Todo list made for the TOP curriculum.
 
 - Refactored the whole of the Javascript again to make the data easier to manipulate.
 - Need to figure out a better way of doing `let indexOfTask = allTasksArray.map(task => task.id == taskClickedID).indexOf(true)` that doesn't go through the whole of the array.
+- Fixed a bug where the task div/project div wasn't expanding to accomodate larger tasks.
 
 ## 1/08/2021
 
@@ -16,6 +17,7 @@ Todo list made for the TOP curriculum.
 - Added feature that allows the browser to remember the task you had selected in the previous session and load those tasks accordingly.
 - Added some date-fns functions to check the current date/to make sure an input task isn't before the current date.
 - Fixed bug that stopped projects from changing after adding a new project.
+- Started V3 todo-list
 
 ## 31/07/2021
 
