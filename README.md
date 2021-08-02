@@ -4,7 +4,12 @@ Todo list made for the TOP curriculum.
 
 `Made in HTML, SASS and Javascript - compiled with Webpack`
 
-## 32/07/2021
+## 2/08/2021
+
+- Refactored the whole of the Javascript again to make the data easier to manipulate.
+- Need to figure out a better way of doing `let indexOfTask = allTasksArray.map(task => task.id == taskClickedID).indexOf(true)` that doesn't go through the whole of the array.
+
+## 1/08/2021
 
 - Started V2 todo-list
 - Added ability to add both tasks and projects.

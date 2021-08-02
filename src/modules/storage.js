@@ -18,15 +18,10 @@ const Storage = (function () {
 		localStorage.setItem(taskArrayKey, stringifiedJson);
 	};
 
-	const saveCurrentProject = function(projectName){
+	const saveStarredProject = function(projectName){
 		const stringifiedJson = JSON.stringify(projectName)
 		localStorage.setItem(projectCurrentKey, stringifiedJson)
 	}
-	
-	const saveAll = function (projectArray, taskArray) {
-		saveProjects(projectArray);
-		saveTasks(taskArray);
-	};
 
 	// -- LOADING -- //
 
@@ -38,18 +33,17 @@ const Storage = (function () {
 		return JSON.parse(localStorage.getItem(taskArrayKey));
 	};
 
-	const loadCurrentProject = function() {
+	const loadStarredProject = function() {
 		return JSON.parse(localStorage.getItem(projectCurrentKey))
 	}
 
 	return { 
             saveProjects,
             saveTasks,
-			saveCurrentProject,
-			saveAll,
+			saveStarredProject,
             loadProjects, 
             loadTasks,
-			loadCurrentProject
+			loadStarredProject
             };
 
 })();

@@ -218,10 +218,13 @@ body {
   height: 100%;
   min-width: 76%;
   overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .mainContainer__taskListDiv__container {
-  width: 100%;
+  width: 95%;
   margin-top: 25px;
 }
 
@@ -339,6 +342,10 @@ body {
 .mainContainer__taskListDiv__container .taskContainer .taskButtons .taskEdit:hover {
   cursor: pointer;
   color: black !important;
+}
+
+.mainContainer__taskListDiv__container .taskContainer:hover {
+  cursor: pointer;
 }
 
 .mainContainer__taskListDiv__container .taskContainer:hover .taskButtons .taskDelete {

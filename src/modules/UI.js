@@ -8,7 +8,7 @@ const UI = (function(){
 
     // -- Global variables -- //
 
-    let allTasksArray = []
+    let allTasksArray = [{project:"Example project", title:"Example Task", date: "2021-10-02", note: "This is an example task.", completed: "False", id: 1}]
     let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
 
@@ -35,7 +35,6 @@ const UI = (function(){
 
         ProjectsDOM.renderSingle(projectInput)
         allProjectsArray.push(projectInput)
-        console.log(allProjectsArray)
         Storage.saveProjects(allProjectsArray)
     })
 
@@ -45,7 +44,13 @@ const UI = (function(){
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.addCurrentlySelected(e.target)
 
-        if(clickedProjectName === "This Week" || clickedProjectName === "Today" ) return
+        if(clickedProjectName === "This Week"){
+            TasksDOM.clearTasks();
+        }
+
+        if(clickedProjectName === "Today"){
+            TasksDOM.clearTasks();
+        }
 
         if(clickedProjectName === "All"){
             TasksDOM.clearAndRenderTasks(allTasksArray)
@@ -53,7 +58,6 @@ const UI = (function(){
         } 
 
         const filteredList = filter.byProject(allTasksArray, currentlySelectedProject);
-        console.log(filteredList)
         TasksDOM.clearAndRenderTasks(filteredList)
 
     })
@@ -89,6 +93,33 @@ const UI = (function(){
 
         console.log(allTasksArray)
 
+    })
+
+    Input.taskEditDelete(function(e){
+
+        
+        let clickedNode 
+
+        if(e.target.parentNode.parentNode.parentNode.classList.contains("taskContainer")){
+            clickedNode = e.target.parentNode.parentNode.parentNode
+        } else {
+            clickedNode = e.target.parentNode.parentNode.parentNode.parentNode
+        }
+
+        const taskClickedID = clickedNode.id
+
+
+        if(e.target.classList.contains("taskDeleteButton")){
+            //Find a better way of doing this 
+            let indexOfTask = allTasksArray.map(task => task.id == taskClickedID).indexOf(true)
+            allTasksArray.splice(indexOfTask, 1)
+            
+            clickedNode.remove();
+
+            Storage.saveTasks(allTasksArray);
+        } else {
+            console.log("edit")
+        }
     })
 
     // -- On Load -- //

@@ -4,6 +4,7 @@ const Input = (function(){
 
 	const submitProjectButton = document.getElementById("submitProjectButton")
 	const allProjectsContainer = document.querySelector(".mainContainer__projectListDiv__projectList")
+	const allTasksContainer = document.querySelector(".mainContainer__taskListDiv__container")
 	const submitTaskButton = document.getElementById("taskSubmit")
 
 	const newProject = function(passthrough){
@@ -36,7 +37,17 @@ const Input = (function(){
 		})
 	}
 
-	return { newProject, chooseProject, deleteProject, newTask }
+	const taskEditDelete = function(passthrough){
+		allTasksContainer.addEventListener("click", function(e){
+			if(e.target.classList.contains("taskDeleteButton") || e.target.classList.contains("taskEditButton")){
+				passthrough(e)
+			}
+		})
+	}
+
+
+
+	return { newProject, chooseProject, deleteProject, newTask, taskEditDelete }
 
 })();
 
