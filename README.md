@@ -6,12 +6,16 @@ Todo list made for the TOP curriculum.
 
 [Live Here](https://ctrlholtdel.github.io/todo-list/dist/index.html)
 
+## 3/08/2021
+
+- Fixed a bug where project IDs started with an uppercase character.
+- Added a delete Modal that pops up when deleting >0 tasks.
+- Fixed the style on the delete confirmation modal.
+
 ## 2/08/2021
 
 - Refactored the whole of the Javascript again to make the data easier to manipulate.
 - Fixed a bug where the task div/project div wasn't expanding to accomodate larger tasks.
-- Fixed a bug where project IDs started with an uppercase character.
-- Added a delete Modal that pops up when deleting >0 tasks.
 
 ## 1/08/2021
 

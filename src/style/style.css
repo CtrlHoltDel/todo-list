@@ -544,12 +544,20 @@ footer {
 .confirmDeleteProjectModal .deleteConfirmationModal {
   border-radius: 10px;
   background-color: #718355;
-  width: 20vw;
-  height: 20vh;
-  display: -ms-grid;
-  display: grid;
-  padding: 10px;
-  grid: "deleteModalParagraph deleteModalParagraph" 1fr "deleteModalConfirm deleteModalDeny" 1fr / 1fr 1fr;
+  width: 30vw;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .confirmDeleteProjectModal .deleteModalParagraph {
@@ -565,31 +573,43 @@ footer {
   grid-area: deleteModalParagraph;
   text-align: center;
   font-size: 1.2rem;
+  width: 80%;
 }
 
-.confirmDeleteProjectModal .deleteModalConfirm {
+.confirmDeleteProjectModal .buttonsInModal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+}
+
+.confirmDeleteProjectModal .buttonsInModal .deleteModalConfirm {
   grid-area: deleteModalConfirm;
-  background-color: #a0e0a0;
-  margin-right: 10px;
-}
-
-.confirmDeleteProjectModal .deleteModalConfirm:hover {
-  cursor: pointer;
-  background-color: #e9f5db;
-}
-
-.confirmDeleteProjectModal .deleteModalDeny {
-  grid-area: deleteModalDeny;
   background-color: #f33636;
-  margin-left: 10px;
 }
 
-.confirmDeleteProjectModal .deleteModalDeny:hover {
+.confirmDeleteProjectModal .buttonsInModal .deleteModalConfirm:hover {
   cursor: pointer;
   background-color: #ee5a5a;
 }
 
-.confirmDeleteProjectModal .deleteButtonsModal {
+.confirmDeleteProjectModal .buttonsInModal .deleteModalDeny {
+  grid-area: deleteModalDeny;
+  background-color: #a39a9a;
+}
+
+.confirmDeleteProjectModal .buttonsInModal .deleteModalDeny:hover {
+  cursor: pointer;
+  background-color: #c4baba;
+}
+
+.confirmDeleteProjectModal .buttonsInModal .deleteButtonsModal {
+  border-radius: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -599,8 +619,8 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 50%;
   border: none;
   font-size: 2;
+  padding: 10px 50px;
 }
 /*# sourceMappingURL=style.css.map */

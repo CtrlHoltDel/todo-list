@@ -401,57 +401,63 @@ footer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  color: $secondary-colour;
-  display: none;
+	color: $secondary-colour;
+	display: none;
 	.deleteConfirmationModal {
-    border-radius: 10px;
-    background-color: $primary-colour;
-		width: 20vw;
-    height: 20vh;
-		display: grid;
-    padding: 10px;
-		grid:
-			"deleteModalParagraph deleteModalParagraph" 1fr
-			"deleteModalConfirm deleteModalDeny" 1fr
-			/ 1fr 1fr;
+		border-radius: 10px;
+		background-color: $primary-colour;
+		width: 30vw;
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
 	}
 
 	.deleteModalParagraph {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		grid-area: deleteModalParagraph;
-    text-align: center;
-    font-size: 1.2rem;
-  }
-	.deleteModalConfirm {
-		grid-area: deleteModalConfirm;
-    background-color: rgb(160, 224, 160);
-    margin-right: 10px;
+		text-align: center;
+		font-size: 1.2rem;
+		width: 80%;
 	}
 
-  .deleteModalConfirm:hover {
-    cursor: pointer;
-    background-color: $secondary-colour;
-  }
+	.buttonsInModal {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		width: 80%;
 
-	.deleteModalDeny {
-		grid-area: deleteModalDeny;
-    background-color: rgb(243, 54, 54);
-    margin-left: 10px;
+		.deleteModalConfirm {
+			grid-area: deleteModalConfirm;
+			background-color: rgb(243, 54, 54);
+		}
+
+		.deleteModalConfirm:hover {
+			cursor: pointer;
+			background-color: $danger-colour;
+		}
+	
+		.deleteModalDeny {
+			grid-area: deleteModalDeny;
+			background-color: rgb(163, 154, 154);
+		}
+	
+		.deleteModalDeny:hover {
+			cursor: pointer;
+			background-color: rgb(196, 186, 186);
+		}
+	
+		.deleteButtonsModal {
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: none;
+			font-size: 2;
+			padding: 10px 50px;
+		}
 	}
-
-  .deleteModalDeny:hover {
-    cursor: pointer;
-    background-color: $danger-colour;
-  }
-
-  .deleteButtonsModal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    border: none;
-    font-size: 2;
-  }
 }
