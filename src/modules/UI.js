@@ -12,13 +12,6 @@ const UI = (function(){
     let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
 
-    const resetToAll = () => {
-        currentlySelectedProject = "all"
-        wholeApp.changeTitle(currentlySelectedProject);
-        StyleDOM.resetCurrentlySelected();
-        clearAndRender(currentlySelectedProject);
-    }
-
     const removeTaskFromArray = (taskID) => {
         const indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
         allTasksArray.splice(indexOfTask, 1)
@@ -87,22 +80,53 @@ const UI = (function(){
         StyleDOM.addCurrentlySelected(e.target)
 
         clearAndRender(currentlySelectedProject);
-
     })
 
     Input.deleteProject( e => {
 
-        const clickedNode = e.target.closest(".mainContainer__projectListDiv__projectList__projectContainer")
-							
-        clickedNode.remove();
-        allProjectsArray.splice(allProjectsArray.indexOf(clickedNode.id), 1)
-
-        if(clickedNode.id === currentlySelectedProject){
-            resetToAll();
+        const confirmedRemove = function(node, id, tasks){
+            node.remove();
+            allProjectsArray.splice(allProjectsArray.indexOf(id), 1)
+        
+            tasks.forEach(task => {
+                removeTaskFromArray(task.id)
+            })
+    
+            if(projectID === currentlySelectedProject){
+                currentlySelectedProject = "all"
+                wholeApp.changeTitle(currentlySelectedProject);
+                StyleDOM.resetCurrentlySelected();
+            }
+    
+            clearAndRender(currentlySelectedProject);
+    
+            Storage.saveProjects(allProjectsArray)
         }
 
+        const clickedNode = e.target.closest(".mainContainer__projectListDiv__projectList__projectContainer")
+        const projectID = clickedNode.id
 
-        Storage.saveProjects(allProjectsArray)
+        const tasksArrayIDs = allTasksArray.filter(task => {
+            if(task.project === projectID){
+                return task.id
+            }
+        })
+
+        if(tasksArrayIDs.length === 0){
+            confirmedRemove(clickedNode, projectID, tasksArrayIDs);
+            return
+        }
+
+        Input.confirmDelete(function(e){
+            if(e.target.classList.contains("deleteModalConfirm")){
+                confirmedRemove(clickedNode, projectID, tasksArrayIDs);
+                StyleDOM.removeDeleteConfirmModal();
+            } else if (e.target.classList.contains("deleteModalDeny")){
+                StyleDOM.removeDeleteConfirmModal();
+            } else if (e.target.classList.contains("confirmDeleteProjectModal")){
+                StyleDOM.removeDeleteConfirmModal();
+            }
+        });
 
     })
 

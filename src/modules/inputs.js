@@ -6,6 +6,7 @@ const Input = (function(){
 	const allProjectsContainer = document.querySelector(".mainContainer__projectListDiv__projectList")
 	const allTasksContainer = document.querySelector(".mainContainer__taskListDiv__container")
 	const submitTaskButton = document.getElementById("taskSubmit")
+	const projectDeleteModal = document.querySelector(".confirmDeleteProjectModal")
 
 	const newProject = function(passthrough){
 		submitProjectButton.addEventListener("click", function(e){
@@ -43,7 +44,14 @@ const Input = (function(){
 		})
 	}
 
-	return { newProject, chooseProject, deleteProject, newTask, taskEditDelete }
+	const confirmDelete = function(passthrough){
+		projectDeleteModal.style.display = "flex"
+		projectDeleteModal.addEventListener("click", function(e){
+			passthrough(e)
+		})
+	}
+
+	return { newProject, chooseProject, deleteProject, newTask, taskEditDelete, confirmDelete }
 
 })();
 

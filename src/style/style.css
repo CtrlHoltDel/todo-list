@@ -523,7 +523,84 @@ footer {
   width: 100vw;
 }
 
-#completedNumberOfTasks {
-  font-size: 2rem;
+.confirmDeleteProjectModal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.274);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #e9f5db;
+  display: none;
+}
+
+.confirmDeleteProjectModal .deleteConfirmationModal {
+  border-radius: 10px;
+  background-color: #718355;
+  width: 20vw;
+  height: 20vh;
+  display: -ms-grid;
+  display: grid;
+  padding: 10px;
+  grid: "deleteModalParagraph deleteModalParagraph" 1fr "deleteModalConfirm deleteModalDeny" 1fr / 1fr 1fr;
+}
+
+.confirmDeleteProjectModal .deleteModalParagraph {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-area: deleteModalParagraph;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.confirmDeleteProjectModal .deleteModalConfirm {
+  grid-area: deleteModalConfirm;
+  background-color: #a0e0a0;
+  margin-right: 10px;
+}
+
+.confirmDeleteProjectModal .deleteModalConfirm:hover {
+  cursor: pointer;
+  background-color: #e9f5db;
+}
+
+.confirmDeleteProjectModal .deleteModalDeny {
+  grid-area: deleteModalDeny;
+  background-color: #f33636;
+  margin-left: 10px;
+}
+
+.confirmDeleteProjectModal .deleteModalDeny:hover {
+  cursor: pointer;
+  background-color: #ee5a5a;
+}
+
+.confirmDeleteProjectModal .deleteButtonsModal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50%;
+  border: none;
+  font-size: 2;
 }
 /*# sourceMappingURL=style.css.map */

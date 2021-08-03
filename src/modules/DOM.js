@@ -2,6 +2,7 @@ import format from "date-fns/format";
 
 const projectsContainerDiv = document.querySelector(".mainContainer__projectListDiv__projectList")
 const tasksContainerDiv = document.querySelector(".mainContainer__taskListDiv__container")
+const projectDeleteModal = document.querySelector(".confirmDeleteProjectModal")
 
 const ProjectsDOM = (function(){
 
@@ -177,7 +178,11 @@ const StyleDOM = (function(){
 
 	}
 
-	return { addCurrentlySelected, removeCurrentlySelected, resetCurrentlySelected}
+	const removeDeleteConfirmModal = function(){
+		projectDeleteModal.style.display = "none"
+	}
+
+	return { addCurrentlySelected, removeCurrentlySelected, resetCurrentlySelected, removeDeleteConfirmModal}
 
 })();
 
