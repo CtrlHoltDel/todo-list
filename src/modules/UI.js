@@ -8,9 +8,13 @@ const UI = (function(){
 
     // -- Global variables -- //
 
-    let allTasksArray = [{project:"example project", title:"Example Task", date: "2021-10-02", note: "This is an example task.", completed: "False", id: 1}]
+    let allTasksArray = [{project:"example project", title:"Example Task", date: wholeApp.currentDate(), note: "This is an example task.", completed: "False", id: 1}]
     let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
+
+    const updateTasksCompleted = function(array){
+        wholeApp.updateNumberOfTasks(filter.completedTasks(array),array.length)
+    }
 
     const resetToAll = () => {
         currentlySelectedProject = "all"
@@ -18,9 +22,21 @@ const UI = (function(){
         StyleDOM.resetCurrentlySelected()
     }
 
-    const deleteTaskFromArray = (taskID) => {
-        let indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
+    const removeTaskFromArray = (taskID) => {
+        const indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
         allTasksArray.splice(indexOfTask, 1)
+    }
+
+    const changeReadStatus = (taskID) => {
+
+        const indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
+
+        if(allTasksArray[indexOfTask].completed){
+            allTasksArray[indexOfTask].completed = false
+        } else {
+            allTasksArray[indexOfTask].completed = true
+        }
+
     }
 
     // -- Event Listeners -- //
@@ -55,21 +71,23 @@ const UI = (function(){
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.addCurrentlySelected(e.target)
 
-        if(clickedProjectName === "this Week"){
-            TasksDOM.clearTasks();
-        }
 
-        if(clickedProjectName === "today"){
-            TasksDOM.clearTasks();
+        if(clickedProjectName === "this week" || clickedProjectName === "today"){
+            const filteredArray = filter.byPreset(allTasksArray, currentlySelectedProject);
+            TasksDOM.clearAndRenderTasks(filteredArray)
+            updateTasksCompleted(filteredArray)
+            return
         }
 
         if(clickedProjectName === "all"){
             TasksDOM.clearAndRenderTasks(allTasksArray)
+            updateTasksCompleted(allTasksArray)
             return
         } 
 
         const filteredList = filter.byProject(allTasksArray, currentlySelectedProject);
         TasksDOM.clearAndRenderTasks(filteredList)
+        updateTasksCompleted(filteredList)
 
     })
 
@@ -89,7 +107,7 @@ const UI = (function(){
     })
 
     Input.newTask(() => {
-        console.log(allTasksArray)
+
         const taskInputData = GetInput.form()
 
         if(taskInputData === null){
@@ -98,47 +116,43 @@ const UI = (function(){
 
         const task = new Task(taskInputData[0], taskInputData[1], taskInputData[2], currentlySelectedProject)
 
-
-        console.log(currentlySelectedProject)
-
-        TasksDOM.renderSingle(task);
+        if(currentlySelectedProject != "this week" && currentlySelectedProject != "today"){
+            console.log("not this week or today")
+            TasksDOM.renderSingle(task);
+        }
 
         allTasksArray.push(task)
-        
         Storage.saveTasks(allTasksArray)
+
     })
 
     Input.taskEditDelete((e) => {
-
         
-        let clickedNode 
+        let clickedNode = e.target.closest(".taskContainer")
 
-        if(e.target.parentNode.parentNode.parentNode.classList.contains("taskContainer")){
-            clickedNode = e.target.parentNode.parentNode.parentNode
-        } else {
-            clickedNode = e.target.parentNode.parentNode.parentNode.parentNode
+        if(clickedNode === null){
+            return
         }
-
-        const taskClickedID = clickedNode.id
-
 
         if(e.target.classList.contains("taskDeleteButton")){
-            //Find a better way of doing this 
-
-            deleteTaskFromArray(taskClickedID);
+            removeTaskFromArray(clickedNode.id)
             clickedNode.remove();
             Storage.saveTasks(allTasksArray);
+        } else if(e.target.classList.contains("taskEditButton")) {
+
+            console.log("edit")
 
         } else {
 
-            console.log(clickedNode.children)
+            TasksDOM.changeStatus(clickedNode)
+            changeReadStatus(clickedNode.id)
+            Storage.saveTasks(allTasksArray)
+
         }
+
     })
 
     // -- On Load -- //
-
-
-    wholeApp.setDateInputParameters();
 
     if(Storage.loadProjects() != null){
         allProjectsArray = Storage.loadProjects()
@@ -147,8 +161,9 @@ const UI = (function(){
     if(Storage.loadTasks() != null){
         allTasksArray = Storage.loadTasks()
     }
-
-    TasksDOM.renderAll(allTasksArray)
+    
+    wholeApp.setDateInputParameters();
+    TasksDOM.clearAndRenderTasks(allTasksArray)
     ProjectsDOM.renderAll(allProjectsArray)
 
 

@@ -48,11 +48,23 @@ body {
   padding-right: 2.5%;
 }
 
+.header__settings {
+  position: relative;
+  height: 40px;
+  top: 20px;
+  right: 20px;
+}
+
+.header__settings:hover {
+  cursor: pointer;
+  color: black;
+}
+
 .mainContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 80vh;
+  height: 88vh;
   width: 100vw;
 }
 
@@ -255,11 +267,11 @@ body {
       -ms-flex-align: center;
           align-items: center;
   min-width: 20px;
-  height: 100%;
+  min-height: 35px;
 }
 
 .mainContainer__taskListDiv__container .taskContainer .taskLineDividerDiv .taskLineDivider {
-  height: 80%;
+  min-height: 100%;
   width: 2px;
   background-color: #8292694f;
 }
@@ -358,6 +370,30 @@ body {
   color: #718355;
 }
 
+.mainContainer #newTaskForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+}
+
+.mainContainer #newTaskForm .inputTaskHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.mainContainer #newTaskForm .inputTaskHeader .taskError {
+  color: red;
+}
+
 .dangerColour {
   background-color: #ee5a5a !important;
   font-size: 2rem;
@@ -388,8 +424,8 @@ body {
 }
 
 .completedTask {
-  background-color: #bbbbbb !important;
-  color: lightgray !important;
+  background-color: #b4afaf !important;
+  color: rgba(0, 0, 0, 0.507) !important;
 }
 
 footer {
@@ -404,7 +440,11 @@ footer {
           align-items: center;
   background-color: #718355;
   color: #e9f5db;
-  min-height: 10vh;
+  min-height: 2vh;
   width: 100vw;
+}
+
+#completedNumberOfTasks {
+  font-size: 2rem;
 }
 /*# sourceMappingURL=style.css.map */

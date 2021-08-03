@@ -44,11 +44,23 @@ body {
     padding-right: 2.5%;
   }
 
+  &__settings {
+    position: relative;
+    height: 40px;
+    top: 20px;
+    right: 20px;
+  }
+
+  &__settings:hover {
+    cursor: pointer;
+    color: black;
+  }
+
 }
 
 .mainContainer {
   display: flex;
-  height: 80vh;
+  height: 88vh;
   width: 100vw;
 
 
@@ -67,6 +79,7 @@ body {
       align-items: center;
       width: 80%;
       margin: 20px 0%;
+
       form {
         width: 100%;
         input {
@@ -198,10 +211,10 @@ body {
           justify-content: center;
           align-items: center;
           min-width: 20px;
-          height: 100%;
+          min-height: 35px;
 
           .taskLineDivider {
-            height: 80%;
+            min-height: 100%;
             width: 2px;
             background-color: $accents-colour;
           }
@@ -277,7 +290,24 @@ body {
       }
     }
   }
+
+  #newTaskForm {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  
+    .inputTaskHeader{
+      display: flex;
+      justify-content: space-between;
+  
+      .taskError {
+        color: red;
+      }
+    }
+  }
+
 }
+
 
 .dangerColour {
   background-color: $danger-colour !important;
@@ -297,8 +327,8 @@ body {
 }
 
 .completedTask {
-  background-color: rgb(187, 187, 187) !important;
-  color: rgb(211, 211, 211) !important;
+  background-color: rgb(180, 175, 175) !important;
+  color: rgba(0, 0, 0, 0.507) !important;
 }
 
 footer {
@@ -307,6 +337,10 @@ footer {
   align-items: center;
   background-color: $primary-colour;
   color: $secondary-colour;
-  min-height: 10vh;
+  min-height: 2vh;
   width: 100vw;
+}
+
+#completedNumberOfTasks{
+  font-size: 2rem;
 }

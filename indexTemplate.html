@@ -7,7 +7,10 @@
 		<header class="header">
 			<div class="header__title">Todo List</div>
 			<div class="header__projectTitle">All</div>
-			<!-- <div class="header__settings">Settings</div> -->
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 header__settings" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+			</svg>
 		</header>
 		<div class="mainContainer">
 			<div class="mainContainer__projectListDiv">
@@ -33,17 +36,28 @@
 				<div class="mainContainer__taskListDiv__container">
 				</div>
 			</div>
-		</div>
-		<footer>
-			<form action="">
-				<label for="titleInput">Title</label>
+			<form id="newTaskForm" action="">
+				<h2>New Task</h2>
+				<div class="titleHeaderFor inputTaskHeader">
+					<label for="titleInput">Title</label>
+					<div class="titleRequiredError taskError">required</div>
+				</div>
 				<input type="text" id="titleInput" />
-				<label for="dateInput">Date</label>
+				<div class="dateHeaderFor inputTaskHeader">
+					<label for="titleInput">Date</label>
+					<div class="titleRequiredError taskError">required</div>
+				</div>
+
 				<input type="date" id="dateInput" />
-				<label for="noteInput">Note</label>
+				<div class="noteHeaderFor inputTaskHeader">
+					<label for="titleInput">Note</label>
+					<div class="noteRequiredError taskError">required</div>
+				</div>
 				<input type="text" id="noteInput" />
 				<button id="taskSubmit">Submit</button>
 			</form>
+		</div>
+		<footer>
 		</footer>
 	</body>
 </html>

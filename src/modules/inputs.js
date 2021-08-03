@@ -39,13 +39,9 @@ const Input = (function(){
 
 	const taskEditDelete = function(passthrough){
 		allTasksContainer.addEventListener("click", function(e){
-			if(e.target.classList.contains("taskDeleteButton") || e.target.classList.contains("taskEditButton")){
-				passthrough(e)
-			}
+			passthrough(e)
 		})
 	}
-
-
 
 	return { newProject, chooseProject, deleteProject, newTask, taskEditDelete }
 
@@ -71,7 +67,6 @@ const GetInput = (function(){
 		const inputtedDate = date.value.split("-")
 		const beforeCheck = isBefore(new Date(inputtedDate[0], inputtedDate[1], inputtedDate[2]), new Date(todaysDate[0], todaysDate[1], todaysDate[2]))
 
-		console.log(todaysDate)
 
 		let missedInputs = 0
 
@@ -99,8 +94,6 @@ const GetInput = (function(){
 		title.value = ""
 		date.value = `${todaysDate[0]}-${todaysDate[1]}-${todaysDate[2]}`
 		note.value = ""
-
-		console.log(arrayToReturn)
 
 		return arrayToReturn
 
