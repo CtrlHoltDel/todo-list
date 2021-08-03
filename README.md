@@ -9,6 +9,7 @@ Todo list made for the TOP curriculum.
 - Refactored the whole of the Javascript again to make the data easier to manipulate.
 - Need to figure out a better way of doing `let indexOfTask = allTasksArray.map(task => task.id == taskClickedID).indexOf(true)` that doesn't go through the whole of the array.
 - Fixed a bug where the task div/project div wasn't expanding to accomodate larger tasks.
+- Fixed a bug where project IDs started with an uppercase character.
 
 ## 1/08/2021
 

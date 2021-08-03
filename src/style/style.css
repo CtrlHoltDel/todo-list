@@ -10,16 +10,13 @@ body {
 }
 
 .header {
+  width: 100vw;
+  height: 10vh;
+  display: -ms-grid;
+  display: grid;
+  grid: ". . ." 1fr / 1fr 3.5fr 1fr;
   background-color: #718355;
   color: #e9f5db;
-  height: 10vh;
-  width: 100vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   font-size: 3rem;
 }
 
@@ -30,8 +27,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 100%;
-  padding-left: 2.5%;
 }
 
 .header__projectTitle {
@@ -49,10 +48,20 @@ body {
 }
 
 .header__settings {
-  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 20px;
+}
+
+.header__settings svg {
   height: 40px;
-  top: 20px;
-  right: 20px;
 }
 
 .header__settings:hover {
@@ -60,12 +69,25 @@ body {
   color: black;
 }
 
-.mainContainer {
+.mainContainerFlex {
+  width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 88vh;
-  width: 100vw;
+}
+
+.mainContainer {
+  height: 95%;
+  display: -ms-grid;
+  display: grid;
+  grid: ". . ." 1fr / 1fr 3.5fr 1fr;
 }
 
 .mainContainer__projectListDiv {
@@ -96,7 +118,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 80%;
-  margin: 20px 0%;
 }
 
 .mainContainer__projectListDiv__input form {
@@ -231,7 +252,7 @@ body {
 
 .mainContainer__taskListDiv {
   height: 100%;
-  min-width: 76%;
+  width: 100%;
   overflow: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -239,8 +260,21 @@ body {
 }
 
 .mainContainer__taskListDiv__container {
-  width: 95%;
-  margin-top: 25px;
+  width: 100%;
+}
+
+.mainContainer__taskListDiv__container .headerForObjects {
+  font-size: 2rem;
+  height: 2.5rem;
+  margin-left: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0px 5px 25px;
+  color: #718355;
 }
 
 .mainContainer__taskListDiv__container .taskContainer {
@@ -370,7 +404,18 @@ body {
   color: #718355;
 }
 
-.mainContainer #newTaskForm {
+.mainContainer__taskInputDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-width: 350px;
+  min-width: 350px;
+}
+
+.mainContainer__taskInputDiv #newTaskForm {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -379,9 +424,26 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 80%;
+  color: #718355;
 }
 
-.mainContainer #newTaskForm .inputTaskHeader {
+.mainContainer__taskInputDiv #newTaskForm h2 {
+  text-align: center;
+}
+
+.mainContainer__taskInputDiv #newTaskForm input {
+  border: none;
+  background-color: #718355;
+  font-size: 1.2rem;
+  height: 2.5rem;
+  margin-bottom: 10px;
+  color: #e9f5db;
+  padding: 0px 10px;
+  border-radius: 5px;
+}
+
+.mainContainer__taskInputDiv #newTaskForm .inputTaskHeader {
+  font-weight: bold;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -390,8 +452,25 @@ body {
           justify-content: space-between;
 }
 
-.mainContainer #newTaskForm .inputTaskHeader .taskError {
+.mainContainer__taskInputDiv #newTaskForm .inputTaskHeader .taskError {
+  display: none;
+  font-weight: 500;
   color: red;
+}
+
+.mainContainer__taskInputDiv #newTaskForm button {
+  border: none;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: #718355 2px solid;
+  color: #718355;
+  height: 2.5rem;
+  background-color: #e9f5db;
+}
+
+.mainContainer__taskInputDiv #newTaskForm button:hover {
+  cursor: pointer;
 }
 
 .dangerColour {

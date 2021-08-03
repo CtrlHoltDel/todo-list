@@ -8,18 +8,15 @@ const UI = (function(){
 
     // -- Global variables -- //
 
-    let allTasksArray = [{project:"example project", title:"Example Task", date: wholeApp.currentDate(), note: "This is an example task.", completed: "False", id: 1}]
+    let allTasksArray = [{project:"example project", title:"Example Task", date: wholeApp.currentDate(), note: "This is an example task.", completed: false, id: 1}]
     let allProjectsArray = [ "example project" ]
     let currentlySelectedProject = "all"
 
-    const updateTasksCompleted = function(array){
-        wholeApp.updateNumberOfTasks(filter.completedTasks(array),array.length)
-    }
-
     const resetToAll = () => {
         currentlySelectedProject = "all"
-        wholeApp.changeTitle(currentlySelectedProject)
-        StyleDOM.resetCurrentlySelected()
+        wholeApp.changeTitle(currentlySelectedProject);
+        StyleDOM.resetCurrentlySelected();
+        clearAndRender(currentlySelectedProject);
     }
 
     const removeTaskFromArray = (taskID) => {
@@ -27,14 +24,32 @@ const UI = (function(){
         allTasksArray.splice(indexOfTask, 1)
     }
 
-    const changeReadStatus = (taskID) => {
+    const changeReadStatus = (node) => {
 
-        const indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
+        TasksDOM.changeStatus(node)
+
+        const indexOfTask = allTasksArray.map(task => task.id == node.id).indexOf(true)
 
         if(allTasksArray[indexOfTask].completed){
             allTasksArray[indexOfTask].completed = false
         } else {
             allTasksArray[indexOfTask].completed = true
+        }
+
+    }
+
+    const clearAndRender = (currentTask) => {
+
+        if(currentTask === "this week" || currentTask === "today"){
+            const filteredList = filter.byPreset(allTasksArray, currentlySelectedProject);
+            TasksDOM.clearAndRenderWithHeaders(filteredList)
+            return
+        } else if (currentTask === "all") {
+            TasksDOM.clearAndRenderWithHeaders(allTasksArray)
+            return
+        } else {
+            const filteredList = filter.byProject(allTasksArray, currentlySelectedProject);
+            TasksDOM.clearAndRenderTasks(filteredList)
         }
 
     }
@@ -71,36 +86,21 @@ const UI = (function(){
         wholeApp.changeTitle(currentlySelectedProject)
         StyleDOM.addCurrentlySelected(e.target)
 
-
-        if(clickedProjectName === "this week" || clickedProjectName === "today"){
-            const filteredArray = filter.byPreset(allTasksArray, currentlySelectedProject);
-            TasksDOM.clearAndRenderTasks(filteredArray)
-            updateTasksCompleted(filteredArray)
-            return
-        }
-
-        if(clickedProjectName === "all"){
-            TasksDOM.clearAndRenderTasks(allTasksArray)
-            updateTasksCompleted(allTasksArray)
-            return
-        } 
-
-        const filteredList = filter.byProject(allTasksArray, currentlySelectedProject);
-        TasksDOM.clearAndRenderTasks(filteredList)
-        updateTasksCompleted(filteredList)
+        clearAndRender(currentlySelectedProject);
 
     })
 
     Input.deleteProject( e => {
 
-        let clickedProjectElement = e.target.parentNode.id != "" ? e.target.parentNode : e.target.parentNode.parentNode;
+        const clickedNode = e.target.closest(".mainContainer__projectListDiv__projectList__projectContainer")
+							
+        clickedNode.remove();
+        allProjectsArray.splice(allProjectsArray.indexOf(clickedNode.id), 1)
 
-        ProjectsDOM.deleteSingle(clickedProjectElement)
-        allProjectsArray.splice(allProjectsArray.indexOf(clickedProjectElement.id.toLowerCase()), 1)
-
-        if(clickedProjectElement.id === currentlySelectedProject){
+        if(clickedNode.id === currentlySelectedProject){
             resetToAll();
         }
+
 
         Storage.saveProjects(allProjectsArray)
 
@@ -116,12 +116,13 @@ const UI = (function(){
 
         const task = new Task(taskInputData[0], taskInputData[1], taskInputData[2], currentlySelectedProject)
 
-        if(currentlySelectedProject != "this week" && currentlySelectedProject != "today"){
-            console.log("not this week or today")
-            TasksDOM.renderSingle(task);
-        }
 
+        if(currentlySelectedProject === "today" || currentlySelectedProject === "this week"){
+            task.project = "all"
+        }
+        
         allTasksArray.push(task)
+        clearAndRender(currentlySelectedProject)
         Storage.saveTasks(allTasksArray)
 
     })
@@ -135,17 +136,15 @@ const UI = (function(){
         }
 
         if(e.target.classList.contains("taskDeleteButton")){
-            removeTaskFromArray(clickedNode.id)
-            clickedNode.remove();
+            removeTaskFromArray(clickedNode.id);
+            clearAndRender(currentlySelectedProject);
             Storage.saveTasks(allTasksArray);
         } else if(e.target.classList.contains("taskEditButton")) {
 
             console.log("edit")
 
         } else {
-
-            TasksDOM.changeStatus(clickedNode)
-            changeReadStatus(clickedNode.id)
+            changeReadStatus(clickedNode)
             Storage.saveTasks(allTasksArray)
 
         }
@@ -163,7 +162,7 @@ const UI = (function(){
     }
     
     wholeApp.setDateInputParameters();
-    TasksDOM.clearAndRenderTasks(allTasksArray)
+    clearAndRender(currentlySelectedProject)
     ProjectsDOM.renderAll(allProjectsArray)
 
 
