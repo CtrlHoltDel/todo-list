@@ -668,4 +668,9 @@ footer {
   font-size: 2;
   padding: 10px 50px;
 }
+
+.settingsDropdown {
+  position: absolute;
+  background-color: orange;
+}
 /*# sourceMappingURL=style.css.map */
