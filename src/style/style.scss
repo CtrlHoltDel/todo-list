@@ -222,6 +222,30 @@ body {
 				border-radius: 5px;
 				padding: 5px 0px;
 
+				.editTask {
+					display: none;
+					align-items: center;
+					border: none;
+					background-color: #f5faef;
+					border-radius: 5px;
+				}
+				
+				.taskTitleEdit {
+					width: 10%;
+					margin-left: 10px;
+					min-width: 114px;
+					justify-content: flex-end;
+				}
+
+				.taskDateEdit {
+					min-width: 100px;
+					text-align: right;
+				}
+
+				.taskNoteEdit {
+					width: 100%;
+				}
+
 				.taskLineDividerDiv {
 					display: flex;
 					justify-content: center;
@@ -249,7 +273,7 @@ body {
 				.taskDate {
 					display: flex;
 					align-items: center;
-					min-width: 90px;
+					min-width: 100px;
 				}
 
 				.taskNote {
@@ -286,6 +310,19 @@ body {
 					.taskEdit:hover {
 						cursor: pointer;
 						color: black !important;
+					}
+
+					.taskConfirmEdit {
+						display: none;
+						justify-content: center;
+						align-items: center;
+						color: rgb(8, 116, 8);
+						width: 25px;
+					}
+
+					.taskConfirmEdit:hover{
+						display: cursor;
+						color: rgb(80, 168, 80);
 					}
 				}
 			}
@@ -406,7 +443,7 @@ footer {
 	.deleteConfirmationModal {
 		border-radius: 10px;
 		background-color: $primary-colour;
-		width: 30vw;
+		width: 20vw;
 		height: 200px;
 		display: flex;
 		flex-direction: column;
@@ -442,12 +479,12 @@ footer {
 	
 		.deleteModalDeny {
 			grid-area: deleteModalDeny;
-			background-color: rgb(163, 154, 154);
+			background-color: $secondary-colour;
 		}
 	
 		.deleteModalDeny:hover {
 			cursor: pointer;
-			background-color: rgb(196, 186, 186);
+			background-color: #a3ac9a;
 		}
 	
 		.deleteButtonsModal {
@@ -461,3 +498,4 @@ footer {
 		}
 	}
 }
+

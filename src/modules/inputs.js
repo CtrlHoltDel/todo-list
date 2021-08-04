@@ -59,22 +59,11 @@ const GetInput = (function(){
 
 	const projectForm = document.getElementById("projectInput")
 
-	const projectName = function(){
-		const valueToReturn = projectForm.value.toLowerCase()
-		projectForm.value = ""
-		return valueToReturn
-	}
-
-	const form = function(){
-
-		const title = document.getElementById("titleInput")
-		const date = document.getElementById("dateInput")
-		const note = document.getElementById("noteInput")
+	const formCheck = function(title, date, note ){
 
 		const todaysDate = format(new Date, "yyyy-MM-dd").split("-")
 		const inputtedDate = date.value.split("-")
 		const beforeCheck = isBefore(new Date(inputtedDate[0], inputtedDate[1], inputtedDate[2]), new Date(todaysDate[0], todaysDate[1], todaysDate[2]))
-
 
 		let missedInputs = 0
 
@@ -97,17 +86,45 @@ const GetInput = (function(){
 			return null
 		}
 
-		const arrayToReturn = [ title.value, date.value, note.value ]
+		return [title.value, date.value, note.value]
+	}
 
-		title.value = ""
+	const projectName = function(){
+		const valueToReturn = projectForm.value.toLowerCase()
+		projectForm.value = ""
+		return valueToReturn
+	}
+
+	const form = function(){
+
+		const title = document.getElementById("titleInput")
+		const date = document.getElementById("dateInput")
+		const note = document.getElementById("noteInput")
+
+		const todaysDate = format(new Date, "yyyy-MM-dd").split("-")
+
+		const values = formCheck(title, date, note)
+
+		title.value	= ""
 		date.value = `${todaysDate[0]}-${todaysDate[1]}-${todaysDate[2]}`
 		note.value = ""
 
-		return arrayToReturn
+		return values
 
 	}
 
-	return { projectName, form }
+	const taskEdit = function(node){
+		const clickedID = node.id
+		const title = document.getElementById(`titleEdit-${clickedID}`)
+		const date = document.getElementById( `dateEdit-${clickedID}`)
+		const note = document.getElementById(`noteEdit-${clickedID}`)
+
+		const values = formCheck(title, date, note)
+
+		return values
+	}
+
+	return { projectName, form, taskEdit }
 
 })();
 

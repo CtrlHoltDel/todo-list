@@ -47,6 +47,18 @@ const UI = (function(){
 
     }
 
+    const editTask = (taskID, input) => {
+
+        
+        const indexOfTask = allTasksArray.map(task => task.id == taskID).indexOf(true)
+
+        allTasksArray[indexOfTask].title = input[0]
+        allTasksArray[indexOfTask].date = input[1]
+        allTasksArray[indexOfTask].note = input[2]
+
+
+    }
+
     // -- Event Listeners -- //
 
     Input.newProject(() => {
@@ -82,7 +94,7 @@ const UI = (function(){
         clearAndRender(currentlySelectedProject);
     })
 
-    Input.deleteProject( e => {
+    Input.deleteProject( (e) => {
 
         const confirmedRemove = function(node, id, tasks){
             node.remove();
@@ -153,9 +165,13 @@ const UI = (function(){
 
     Input.taskEditDelete((e) => {
         
-        let clickedNode = e.target.closest(".taskContainer")
+        let clickedNode = e.target.closest(".taskContainer") 
 
         if(clickedNode === null){
+            return
+        }
+
+        if(e.target.classList.contains("editTask")){
             return
         }
 
@@ -164,13 +180,25 @@ const UI = (function(){
             clearAndRender(currentlySelectedProject);
             Storage.saveTasks(allTasksArray);
         } else if(e.target.classList.contains("taskEditButton")) {
+            TasksDOM.taskEdit(clickedNode)
 
-            console.log("edit")
+        } else if(e.target.classList.contains("taskEditConfirmButton")){
+            const inputs = GetInput.taskEdit(clickedNode)
+
+            if(inputs === null){
+                console.log("input error")
+                return
+            }
+
+            TasksDOM.taskEditValues(clickedNode, inputs)
+            TasksDOM.taskEditConfirm(clickedNode)
+            editTask(clickedNode.id, inputs)
+            Storage.saveTasks(allTasksArray)
+            clearAndRender(currentlySelectedProject);
 
         } else {
             changeReadStatus(clickedNode)
             Storage.saveTasks(allTasksArray)
-
         }
 
     })
